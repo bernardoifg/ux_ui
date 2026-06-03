@@ -402,7 +402,10 @@
         right: 0%;
         bottom: -20px;
       }
-      .app-showcase-section {
+      .behance-section,
+      .app-showcase-section,
+      .composite-section,
+      .web-showcase-section {
         padding: 60px 20px !important;
       }
       .flow-timeline {
@@ -410,15 +413,55 @@
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        gap: 20px !important;
-        padding-bottom: 25px !important;
+        gap: 16px !important;
+        padding: 0 20px 15px !important;
+        margin: 0 -20px !important;
         grid-template-columns: none !important;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
       }
+      .flow-timeline::-webkit-scrollbar {
+        height: 4px !important;
+      }
+      .flow-timeline::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-radius: 10px !important;
+      }
+      .flow-timeline::-webkit-scrollbar-thumb {
+        background: rgba(0, 240, 255, 0.3) !important;
+        border-radius: 10px !important;
+      }
       .flow-step {
-        flex: 0 0 82% !important;
+        flex: 0 0 220px !important;
+        max-width: 220px !important;
         scroll-snap-align: start !important;
+      }
+      .flow-carousel-controls {
+        display: flex !important;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-right: 5px;
+      }
+      .flow-nav-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        color: var(--color-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .flow-nav-btn:hover {
+        background: rgba(0, 240, 255, 0.1);
+        border-color: var(--color-accent);
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
       }
     }
 
@@ -440,7 +483,10 @@
         right: -2%;
         bottom: -10px;
       }
-      .behance-section {
+      .behance-section,
+      .composite-section,
+      .web-showcase-section,
+      .app-showcase-section {
         padding: 60px 20px !important;
       }
       .typo-showcase {
@@ -825,7 +871,7 @@
     /* 4. COMPOSITE 3D COLLAGE SHOWCASE */
     .composite-section {
       background: radial-gradient(circle at center, #0b1124 0%, #020408 100%);
-      padding: 160px 80px;
+      padding: 110px 80px;
       overflow: hidden;
     }
 
@@ -1119,6 +1165,13 @@
     }
 
     /* 6. ECOSYSTEM WORKFLOW (STEP-BY-STEP COBROS) */
+    .flow-timeline-outer {
+      position: relative;
+      width: 100%;
+    }
+    .flow-carousel-controls {
+      display: none;
+    }
     .flow-timeline {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1388,8 +1441,11 @@
       .section-header-sticky {
         position: static;
       }
-      .behance-section {
-        padding: 80px 40px;
+      .behance-section,
+      .composite-section,
+      .web-showcase-section,
+      .app-showcase-section {
+        padding: 80px 40px !important;
       }
       .hero-title-large {
         font-size: 5rem;
@@ -1570,7 +1626,7 @@
 
     @media (max-width: 900px) {
       .web-collage-container {
-        height: 440px !important;
+        height: 520px !important;
         position: relative;
         margin-top: 40px;
         display: block !important;
@@ -1581,10 +1637,15 @@
       }
       .web-mockup {
         position: absolute !important;
-        width: 82% !important;
+        width: 85% !important;
         left: 50% !important;
         transform-origin: bottom center !important;
         transition: all 0.4s ease;
+      }
+      /* Adjust hover alignment on mobile to prevent left-side cropping shift */
+      .web-collage-wrapper .web-mockup:hover {
+        transform: translateX(-50%) translateY(-25px) scale(1.05) !important;
+        z-index: 100 !important;
       }
       .mock-front {
         bottom: 0px !important;
@@ -1594,30 +1655,30 @@
         opacity: 1 !important;
       }
       .mock-middle {
-        bottom: 30px !important;
+        bottom: 55px !important;
         left: 50% !important;
-        transform: translateX(-50%) scale(0.92) !important;
+        transform: translateX(-50%) scale(0.95) !important;
         z-index: 40 !important;
         opacity: 0.9 !important;
       }
       .mock-back-1 {
-        bottom: 60px !important;
+        bottom: 110px !important;
         left: 50% !important;
-        transform: translateX(-50%) scale(0.84) !important;
+        transform: translateX(-50%) scale(0.90) !important;
         z-index: 30 !important;
         opacity: 0.8 !important;
       }
       .mock-back-2 {
-        bottom: 90px !important;
+        bottom: 165px !important;
         left: 50% !important;
-        transform: translateX(-50%) scale(0.76) !important;
+        transform: translateX(-50%) scale(0.85) !important;
         z-index: 20 !important;
         opacity: 0.7 !important;
       }
       .mock-back-3 {
-        bottom: 120px !important;
+        bottom: 220px !important;
         left: 50% !important;
-        transform: translateX(-50%) scale(0.68) !important;
+        transform: translateX(-50%) scale(0.80) !important;
         z-index: 10 !important;
         opacity: 0.6 !important;
       }
@@ -1625,35 +1686,20 @@
 
     @media (max-width: 600px) {
       .web-collage-container {
-        height: 330px !important;
+        height: 480px !important;
       }
-      .mock-front { bottom: 0px !important; }
-      .mock-middle { bottom: 20px !important; }
-      .mock-back-1 { bottom: 40px !important; }
-      .mock-back-2 { bottom: 60px !important; }
-      .mock-back-3 { bottom: 80px !important; }
     }
 
     @media (max-width: 480px) {
       .web-collage-container {
-        height: 260px !important;
+        height: 440px !important;
       }
-      .mock-front { bottom: 0px !important; }
-      .mock-middle { bottom: 15px !important; }
-      .mock-back-1 { bottom: 30px !important; }
-      .mock-back-2 { bottom: 45px !important; }
-      .mock-back-3 { bottom: 60px !important; }
     }
 
     @media (max-width: 375px) {
       .web-collage-container {
-        height: 210px !important;
+        height: 410px !important;
       }
-      .mock-front { bottom: 0px !important; }
-      .mock-middle { bottom: 12px !important; }
-      .mock-back-1 { bottom: 24px !important; }
-      .mock-back-2 { bottom: 36px !important; }
-      .mock-back-3 { bottom: 48px !important; }
     }
   </style>
 </head>
@@ -2377,59 +2423,70 @@
         </div>
       </div>
 
-      <!-- Timeline step sequence -->
-      <div class="flow-timeline" style="grid-template-columns: repeat(5, 1fr); gap: 40px 16px;">
-        
-        <!-- Step 1 -->
-        <div class="flow-step">
-          <div class="flow-step-num">01</div>
-          <div class="flow-device-container">
-            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/1-TPV-Cobrar-Tarjeta-1.png" alt="POS Cobro Tarjeta 1" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Monto'">
-          </div>
-          <h5 class="flow-step-title">1. Monto de Cobro</h5>
-          <p class="flow-step-desc">El comercio captura la cantidad a cobrar y pulsa el botón para continuar con tarjeta.</p>
+      <!-- Timeline step sequence wrapper with horizontal scroll navigation -->
+      <div class="flow-timeline-outer">
+        <div class="flow-carousel-controls">
+          <button class="flow-nav-btn flow-prev-btn" aria-label="Previous step">
+            <i class="ti ti-chevron-left"></i>
+          </button>
+          <button class="flow-nav-btn flow-next-btn" aria-label="Next step">
+            <i class="ti ti-chevron-right"></i>
+          </button>
         </div>
 
-        <!-- Step 2 -->
-        <div class="flow-step">
-          <div class="flow-step-num">02</div>
-          <div class="flow-device-container">
-            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/4-TPV-Tarjeta.png" alt="POS Lectura Tarjeta" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Tarjeta'">
+        <div class="flow-timeline" style="grid-template-columns: repeat(5, 1fr); gap: 40px 16px;">
+          
+          <!-- Step 1 -->
+          <div class="flow-step">
+            <div class="flow-step-num">01</div>
+            <div class="flow-device-container">
+              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/1-TPV-Cobrar-Tarjeta-1.png" alt="POS Cobro Tarjeta 1" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Monto'">
+            </div>
+            <h5 class="flow-step-title">1. Monto de Cobro</h5>
+            <p class="flow-step-desc">El comercio captura la cantidad a cobrar y pulsa el botón para continuar con tarjeta.</p>
           </div>
-          <h5 class="flow-step-title">2. Insertar/Acercar Tarjeta</h5>
-          <p class="flow-step-desc">Indicaciones claras para lectura NFC sin contacto o lectura de chip tradicional en el lector.</p>
-        </div>
 
-        <!-- Step 3 -->
-        <div class="flow-step">
-          <div class="flow-step-num">03</div>
-          <div class="flow-device-container">
-            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/5-TPV-PIN.png" alt="POS NIP" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=PIN'">
+          <!-- Step 2 -->
+          <div class="flow-step">
+            <div class="flow-step-num">02</div>
+            <div class="flow-device-container">
+              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/4-TPV-Tarjeta.png" alt="POS Lectura Tarjeta" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Tarjeta'">
+            </div>
+            <h5 class="flow-step-title">2. Insertar/Acercar Tarjeta</h5>
+            <p class="flow-step-desc">Indicaciones claras para lectura NFC sin contacto o lectura de chip tradicional en el lector.</p>
           </div>
-          <h5 class="flow-step-title">3. Ingresar NIP/PIN</h5>
-          <p class="flow-step-desc">Teclado numérico dinámico y seguro para autenticar la transacción con la clave del cliente.</p>
-        </div>
 
-        <!-- Step 4 -->
-        <div class="flow-step">
-          <div class="flow-step-num">04</div>
-          <div class="flow-device-container">
-            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/7-Aceptado.png" alt="POS Aceptado" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Aceptado'">
+          <!-- Step 3 -->
+          <div class="flow-step">
+            <div class="flow-step-num">03</div>
+            <div class="flow-device-container">
+              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/5-TPV-PIN.png" alt="POS NIP" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=PIN'">
+            </div>
+            <h5 class="flow-step-title">3. Ingresar NIP/PIN</h5>
+            <p class="flow-step-desc">Teclado numérico dinámico y seguro para autenticar la transacción con la clave del cliente.</p>
           </div>
-          <h5 class="flow-step-title">4. Pago Aprobado</h5>
-          <p class="flow-step-desc">Indicación de éxito visual y auditiva de que los fondos han sido validados.</p>
-        </div>
 
-        <!-- Step 5 -->
-        <div class="flow-step">
-          <div class="flow-step-num">05</div>
-          <div class="flow-device-container">
-            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/9-Cliente-Ticket.png" alt="POS Ticket Cliente" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Ticket'">
+          <!-- Step 4 -->
+          <div class="flow-step">
+            <div class="flow-step-num">04</div>
+            <div class="flow-device-container">
+              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/7-Aceptado.png" alt="POS Aceptado" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Aceptado'">
+            </div>
+            <h5 class="flow-step-title">4. Pago Aprobado</h5>
+            <p class="flow-step-desc">Indicación de éxito visual y auditiva de que los fondos han sido validados.</p>
           </div>
-          <h5 class="flow-step-title">5. Comprobante Emitido</h5>
-          <p class="flow-step-desc">El cliente visualiza su recibo en pantalla y finaliza el proceso de compra de forma segura.</p>
-        </div>
 
+          <!-- Step 5 -->
+          <div class="flow-step">
+            <div class="flow-step-num">05</div>
+            <div class="flow-device-container">
+              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/9-Cliente-Ticket.png" alt="POS Ticket Cliente" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Ticket'">
+            </div>
+            <h5 class="flow-step-title">5. Comprobante Emitido</h5>
+            <p class="flow-step-desc">El cliente visualiza su recibo en pantalla y finaliza el proceso de compra de forma segura.</p>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -2449,5 +2506,44 @@
 
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const timeline = document.querySelector('.flow-timeline');
+      const prevBtn = document.querySelector('.flow-prev-btn');
+      const nextBtn = document.querySelector('.flow-next-btn');
+      
+      if (timeline && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          timeline.scrollBy({ left: -240, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+          timeline.scrollBy({ left: 240, behavior: 'smooth' });
+        });
+        
+        const toggleButtons = () => {
+          if (timeline.scrollLeft <= 5) {
+            prevBtn.style.opacity = '0.3';
+            prevBtn.style.pointerEvents = 'none';
+          } else {
+            prevBtn.style.opacity = '1';
+            prevBtn.style.pointerEvents = 'auto';
+          }
+          
+          const isEnd = timeline.scrollLeft + timeline.clientWidth >= timeline.scrollWidth - 5;
+          if (isEnd) {
+            nextBtn.style.opacity = '0.3';
+            nextBtn.style.pointerEvents = 'none';
+          } else {
+            nextBtn.style.opacity = '1';
+            nextBtn.style.pointerEvents = 'auto';
+          }
+        };
+        
+        timeline.addEventListener('scroll', toggleButtons);
+        setTimeout(toggleButtons, 200);
+        window.addEventListener('resize', toggleButtons);
+      }
+    });
+  </script>
 </body>
 </html>
