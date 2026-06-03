@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ya Payments — UX/UI Case Study</title>
+  
+  <!-- Fonts: Outfit (Titles) and Plus Jakarta Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <style>
+    :root {
+      --color-bg-darkest: #020408;
+      --color-bg-dark: #070a13;
+      --color-bg-card: #0c1122;
+      --color-primary: #1e78ff;
+      --color-primary-rgb: 30, 120, 255;
+      --color-accent: #00f0ff;
+      --color-accent-rgb: 0, 240, 255;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #8e9bb0;
+      --color-text-tertiary: #52637a;
+      
+      --font-title: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-darkest);
+      color: var(--color-text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* CONTINUOUS BEHANCE STRIP CONTAINER */
+    .behance-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--color-bg-darkest);
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+
+    /* Fixed Sticky Navigation */
+    .nav-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 1.8rem;
+      letter-spacing: -2px;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--color-accent);
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(30, 120, 255, 0.3);
+    }
+
+    /* BACKGROUND LAYOUT BLUEPRINT GRID */
+    .blueprint-bg {
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(30, 120, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+    }
+
+     /* SECTION LAYOUTS */
+    .behance-section {
+      padding: 110px 80px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background-color: var(--color-bg-darkest);
+    }
+
+    /* Ambient background glows, grid and light leaks inspired by Onyx Bank */
+    .behance-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 80% 20%, rgba(30, 120, 255, 0.15) 0%, rgba(30, 80, 255, 0.05) 35%, transparent 65%),
+        radial-gradient(circle at 15% 75%, rgba(0, 240, 255, 0.12) 0%, rgba(0, 180, 255, 0.03) 30%, transparent 60%),
+        linear-gradient(125deg, rgba(30, 120, 255, 0.04) 10%, transparent 40%, rgba(0, 240, 255, 0.04) 60%, transparent 90%),
+        linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Even sections get a slightly mirrored glow pattern for visual variety */
+    .behance-section:nth-of-type(even)::before {
+      background-image: 
+        radial-gradient(circle at 15% 25%, rgba(30, 120, 255, 0.16) 0%, rgba(30, 80, 255, 0.06) 35%, transparent 65%),
+        radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.14) 0%, rgba(0, 180, 255, 0.04) 30%, transparent 60%),
+        linear-gradient(55deg, rgba(0, 240, 255, 0.03) 15%, transparent 45%, rgba(30, 120, 255, 0.04) 65%, transparent 85%),
+        linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+    }
+
+    /* Ensure layout wrappers sit above the background pseudo-elements */
+    .split-layout, .composite-container, .isometric-container-outer, .flow-timeline {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Asymmetric Split Layout: Title (left) / Content (right) */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 80px;
+    }
+
+    .section-header-sticky {
+      position: sticky;
+      top: 120px;
+    }
+
+    .sec-number {
+      font-family: var(--font-title);
+      font-size: 7rem;
+      font-weight: 800;
+      line-height: 0.8;
+      color: rgba(255, 255, 255, 0.08);
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
+      margin-bottom: 20px;
+      display: block;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+
+    .sec-title {
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .sec-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      letter-spacing: 2px;
+    }
+
+    /* 1. HERO SECTION */
+    .hero-strip {
+      padding: 80px 40px 50px;
+      background: radial-gradient(circle at center, #1b4cc4 0%, #060b1e 100%);
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .hero-card {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      position: relative;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: none;
+      width: 100%;
+    }
+
+    .hero-top-info {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: var(--font-body);
+      margin-bottom: 50px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-top-info div:nth-child(2) {
+      max-width: 450px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.72rem;
+    }
+
+    .hero-title-large {
+      font-family: var(--font-title);
+      font-size: 8rem;
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -5px;
+      word-spacing: 30px;
+      color: #ffffff;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 60%, rgba(255,255,255,0.4) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      padding-right: 20px;
+    }
+
+    .hero-desc-text {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 650px;
+      line-height: 1.5;
+      font-weight: 300;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    /* Hero Multi-Device Collage Placement */
+    .hero-devices-collage {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+      height: 480px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      transform: translateY(10px);
+    }
+
+    .hero-device {
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    }
+
+    /* MacBook Pro (Central, Back Layer) */
+    .device-laptop {
+      width: 58%;
+      max-width: 660px;
+      z-index: 1;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+      transform: translateY(-10px);
+    }
+
+    .hero-laptop-screen {
+      background: #000;
+      border: 10px solid #1c202a;
+      border-bottom: 4px solid #1c202a;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      position: relative;
+    }
+
+    .hero-laptop-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-laptop-base {
+      height: 14px;
+      background: linear-gradient(to bottom, #d1d5db 0%, #7c8390 100%);
+      border-radius: 0 0 12px 12px;
+      position: relative;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-laptop-notch {
+      width: 90px;
+      height: 4px;
+      background: #000;
+      margin: 0 auto;
+      border-radius: 0 0 4px 4px;
+    }
+
+    /* Smartphone (Left Floating, Front Layer overlapping Laptop) */
+    .device-phone {
+      position: absolute;
+      left: 4%;
+      bottom: 15px;
+      width: 15.5%;
+      max-width: 170px;
+      z-index: 3;
+      filter: drop-shadow(-15px 20px 30px rgba(0, 0, 0, 0.8));
+      transform: rotate(-6deg) translateZ(0);
+    }
+
+    .device-phone:hover {
+      transform: rotate(-3deg) translateY(-10px) scale(1.05);
+      z-index: 4;
+    }
+
+    .device-phone img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* POS Terminal (Right Floating, Front Layer overlapping Laptop) */
+    .device-pos {
+      position: absolute;
+      right: 0%;
+      bottom: 5px;
+      width: 26%;
+      max-width: 280px;
+      z-index: 3;
+      filter: drop-shadow(15px 20px 30px rgba(0, 0, 0, 0.8));
+      transform: rotate(-6deg) translateZ(0);
+    }
+
+    .device-pos:hover {
+      transform: rotate(-3deg) translateY(-10px) scale(1.05);
+      z-index: 4;
+    }
+
+    .device-pos img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .hero-devices-collage {
+        height: 380px;
+      }
+      .device-laptop {
+        width: 70%;
+        transform: translateY(0);
+      }
+      .device-phone {
+        width: 24%;
+        left: 2%;
+        bottom: -5px;
+      }
+      .device-pos {
+        width: 28%;
+        right: 0%;
+        bottom: -20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-devices-collage {
+        height: 280px;
+      }
+      .device-laptop {
+        width: 85%;
+      }
+      .device-phone {
+        display: none;
+      }
+      .device-pos {
+        width: 32%;
+        right: -2%;
+        bottom: -15px;
+      }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: var(--color-text-tertiary);
+    }
+
+    .mouse-icon {
+      width: 20px;
+      height: 32px;
+      border: 2px solid var(--color-text-tertiary);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .mouse-wheel {
+      width: 4px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scrollWheel 1.5s infinite;
+    }
+
+    @keyframes scrollWheel {
+      0% { top: 6px; opacity: 1; }
+      100% { top: 16px; opacity: 0; }
+    }
+
+    /* 2. STATS & SUMMARY SECTION */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .summary-p {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .stats-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stats-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      backdrop-filter: blur(25px) saturate(140%);
+      -webkit-backdrop-filter: blur(25px) saturate(140%);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .stats-card::after {
+      content: '';
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.14) 0%, transparent 70%);
+      top: -30px;
+      right: -30px;
+      border-radius: 50%;
+      filter: blur(20px);
+      z-index: -1;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+
+    .stats-card:nth-child(even)::after {
+      background: radial-gradient(circle, rgba(30, 120, 255, 0.16) 0%, transparent 70%);
+      bottom: -30px;
+      left: -30px;
+      top: auto;
+      right: auto;
+    }
+
+    .stats-card:hover::after {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.25) 0%, transparent 70%);
+    }
+
+    .stats-card:nth-child(even):hover::after {
+      background: radial-gradient(circle, rgba(30, 120, 255, 0.28) 0%, transparent 70%);
+    }
+
+    .stats-card:hover {
+      border-color: rgba(30, 120, 255, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-5px);
+      box-shadow: 
+        0 20px 45px rgba(0, 0, 0, 0.6),
+        0 0 25px rgba(30, 120, 255, 0.15),
+        inset 0 1px 2px rgba(255, 255, 255, 0.25);
+    }
+
+    .stats-num {
+      font-family: var(--font-title);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stats-lbl {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Challenge / Solution Cards */
+    .challenge-solution-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .cs-card {
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(25px) saturate(140%);
+      -webkit-backdrop-filter: blur(25px) saturate(140%);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      z-index: 2;
+    }
+
+    .cs-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      z-index: 3;
+    }
+
+    /* Embedded glow bubble inside the challenge / solution card backdrops */
+    .cs-card::after {
+      content: '';
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      filter: blur(30px);
+      z-index: -1;
+      pointer-events: none;
+      top: -40px;
+      right: -40px;
+    }
+
+    .cs-challenge {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.03) 0%, rgba(255, 255, 255, 0.02) 100%);
+    }
+    .cs-challenge::before {
+      background: #ef4444;
+      box-shadow: 0 0 15px #ef4444;
+    }
+    .cs-challenge::after {
+      background: radial-gradient(circle, rgba(30, 120, 255, 0.15) 0%, transparent 70%); /* Blue brand glow */
+    }
+
+    .cs-solution {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, rgba(255, 255, 255, 0.02) 100%);
+    }
+    .cs-solution::before {
+      background: #10b981;
+      box-shadow: 0 0 15px #10b981;
+    }
+    .cs-solution::after {
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.18) 0%, transparent 70%); /* Cyan brand glow */
+    }
+
+    .cs-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .cs-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .cs-challenge .cs-icon {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .cs-solution .cs-icon {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .cs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cs-item {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .cs-item-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 10px;
+      flex-shrink: 0;
+    }
+
+    .cs-challenge .cs-item-bullet { background: #ef4444; }
+    .cs-solution .cs-item-bullet { background: #10b981; }
+
+    .cs-item-text {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* 3. BRAND SPECIMEN (TYPOGRAPHY & ICONS) */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+    }
+
+    .typo-showcase {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .specimen-header {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .typo-specimen-large {
+      font-family: var(--font-title);
+      font-size: 7rem;
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+    }
+
+    .font-info-row {
+      margin-top: 40px;
+      display: flex;
+      gap: 40px;
+    }
+
+    .font-info-box h5 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .font-info-box p {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Icon Specimen Grid */
+    .icon-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .icon-grid-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px 10px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .icon-grid-box:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(0, 240, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(0, 240, 255, 0.1);
+    }
+
+    .icon-grid-box i {
+      font-size: 2rem;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .icon-grid-box span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-text-tertiary);
+    }
+
+    /* 4. COMPOSITE 3D COLLAGE SHOWCASE */
+    .composite-section {
+      background: radial-gradient(circle at center, #0b1124 0%, #020408 100%);
+      padding: 160px 80px;
+      overflow: hidden;
+    }
+
+    .composite-container {
+      position: relative;
+      height: 700px;
+      width: 100%;
+      margin: 0 auto;
+      max-width: 1100px;
+    }
+
+    /* Custom CSS Mockup: MacBook */
+    .mock-laptop {
+      width: 780px;
+      position: absolute;
+      left: 0;
+      top: 80px;
+      z-index: 10;
+      filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.8));
+    }
+
+    .mock-laptop-screen {
+      background: #000;
+      border: 14px solid #1c202a;
+      border-bottom: 4px solid #1c202a;
+      border-radius: 24px 24px 0 0;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      position: relative;
+    }
+
+    .mock-laptop-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mock-laptop-base {
+      height: 18px;
+      background: linear-gradient(to bottom, #d1d5db 0%, #7c8390 100%);
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      border-top: 1px solid #ffffff;
+    }
+
+    .mock-laptop-notch {
+      width: 110px;
+      height: 6px;
+      background: #000;
+      margin: 0 auto;
+      border-radius: 0 0 6px 6px;
+    }
+
+    /* Custom CSS Mockup: Floating Phone (iPhone) */
+    .mock-phone-floating {
+      width: 170px;
+      height: auto;
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      position: absolute;
+      right: 90px;
+      bottom: 20px;
+      z-index: 20;
+      box-shadow: none;
+      filter: drop-shadow(15px 20px 25px rgba(0, 0, 0, 0.8));
+      transform: rotate(5deg) translateZ(0);
+      overflow: visible;
+      transition: all 0.4s;
+    }
+
+    .mock-phone-floating:hover {
+      transform: rotate(2deg) translateY(-10px) scale(1.05);
+      filter: drop-shadow(0 30px 60px rgba(30, 120, 255, 0.35));
+    }
+
+    .mock-phone-floating img,
+    .mock-pos-floating img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Floating POS Terminal */
+    .mock-pos-floating {
+      width: 290px;
+      height: auto;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      position: absolute;
+      right: 190px;
+      top: 50px;
+      z-index: 15;
+      box-shadow: none;
+      filter: drop-shadow(-15px 20px 25px rgba(0, 0, 0, 0.7));
+      transform: rotate(-6deg) translateZ(0);
+      padding: 0;
+      overflow: visible;
+      transition: all 0.4s;
+    }
+
+    .mock-pos-floating:hover {
+      transform: rotate(-3deg) translateY(-10px) scale(1.05);
+      filter: drop-shadow(-10px 30px 60px rgba(0, 240, 255, 0.25));
+    }
+
+    .mock-pos-screen {
+      flex: 1;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid #20242e;
+    }
+
+    .mock-pos-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mock-pos-output {
+      height: 6px;
+      background: #0c0e12;
+      border-radius: 3px;
+    }
+
+    /* Technical dotted indicator lines */
+    .indicator-line {
+      position: absolute;
+      border-top: 1.5px dashed rgba(0, 240, 255, 0.3);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .indicator-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--color-accent);
+    }
+
+    .indicator-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-accent);
+      background: rgba(2, 4, 8, 0.85);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+    }
+
+    /* 5. TECHNICAL BLUEPRINT AUDIT SPEC */
+    .blueprint-spec-box {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(25px) saturate(140%);
+      -webkit-backdrop-filter: blur(25px) saturate(140%);
+      border: 1.5px solid rgba(0, 240, 255, 0.25);
+      border-radius: 20px;
+      padding: 50px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    }
+
+    .blueprint-grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+
+    .blueprint-spec-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }     .spec-device-frame {
+      width: 290px;
+      height: 590px;
+      background: #020408;
+      border-radius: 40px;
+      border: 12px solid #101216; /* Bezel representing physical phone frame so the screenshot image does not get cut by border-radius */
+      outline: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+      margin: 0 auto;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+      overflow: hidden;
+    }
+
+    .spec-device-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px; /* Inner rounding matches phone screens */
+    }
+
+    /* Overlay layout helper lines matching the design spec perfectly */
+    .spec-line {
+      position: absolute;
+      background: rgba(239, 68, 68, 0.85);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .line-v-center {
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      border-left: 1px dashed #ef4444;
+    }
+
+    .line-margin-left {
+      left: 11px; /* 16px visual padding inside screenshot scale */
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #ef4444;
+    }
+
+    .line-margin-right {
+      right: 11px; /* 16px visual padding inside screenshot scale */
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #ef4444;
+    }
+
+    .spec-note {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      background: #ef4444;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      z-index: 10;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .note-margin {
+      top: 145px;
+      left: 14px;
+    }
+
+    .note-tab-bar {
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .spec-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px; /* Spaced out the technical spec blocks */
+    }
+
+    .spec-detail-item {
+      border-left: 2px solid var(--color-accent);
+      padding-left: 20px;
+    }
+
+    .spec-detail-item h6 {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      margin-bottom: 12px; /* Increased margin to space the cyan title from the gray description paragraph */
+      letter-spacing: 1px;
+    }
+
+    .spec-detail-item p {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 6. ECOSYSTEM WORKFLOW (STEP-BY-STEP COBROS) */
+    .flow-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .flow-timeline::before {
+      content: '';
+      position: absolute;
+      top: 150px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2) 20%, rgba(0, 240, 255, 0.2) 80%, transparent);
+      z-index: 1;
+    }
+
+    .flow-step {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .flow-step-num {
+      width: 40px;
+      height: 40px;
+      background: var(--color-bg-darkest);
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--color-accent);
+      margin: 0 auto 30px;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+
+    .flow-device-container {
+      width: 155px;
+      height: 310px;
+      background: #020408;
+      border: 5px solid #1c202a;
+      border-radius: 20px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    .flow-device-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+
+    .flow-step-title {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .flow-step-desc {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+      padding: 0 10px;
+    }
+
+    /* 7. FULL-BLEED BRAND DISPLAY INTERSTITIAL */
+    .brand-interstitial {
+      background: var(--color-primary);
+      padding: 90px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 40px; /* Rounded corners to match the layout's aesthetic */
+      margin: 0 40px 110px; /* Margins on the sides and bottom to separate it clean from borders */
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .interstitial-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: rgba(0, 240, 255, 0.25);
+      border-radius: 50%;
+      filter: blur(120px);
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .interstitial-title {
+      font-family: var(--font-title);
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.15;
+      max-width: 900px;
+      margin: 0 auto 20px;
+      color: #ffffff;
+    }
+
+    .interstitial-desc {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 300;
+    }
+
+    /* ROLE DETAIL SECTION */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      position: relative;
+    }
+
+    .role-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(25px) saturate(140%);
+      -webkit-backdrop-filter: blur(25px) saturate(140%);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    /* Embedded high-vibrancy mesh glows inside the cards backdrops */
+    .role-card::before {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+      top: -30px;
+      right: -30px;
+      border-radius: 50%;
+      filter: blur(20px);
+      z-index: -1;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+
+    .role-card:nth-child(2)::before {
+      background: radial-gradient(circle, rgba(30, 120, 255, 0.2) 0%, transparent 70%);
+    }
+
+    .role-card:hover::before {
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, transparent 70%);
+    }
+    
+    .role-card:nth-child(2):hover::before {
+      background: radial-gradient(circle, rgba(30, 120, 255, 0.35) 0%, transparent 70%);
+    }
+
+    .role-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(30, 120, 255, 0.5);
+      transform: translateY(-8px);
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.65),
+        0 0 30px rgba(30, 120, 255, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.25);
+    }
+
+    .role-card-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(30, 120, 255, 0.1);
+      color: var(--color-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
+    .role-card-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .role-card-text {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* FOOTER & CTA */
+    .behance-footer {
+      padding: 160px 80px;
+      text-align: center;
+      background: radial-gradient(circle at top, #0b1124 0%, #020408 100%);
+      position: relative;
+    }
+
+    .footer-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .footer-title-large {
+      font-family: var(--font-title);
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 40px;
+    }
+
+    .tags-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 60px auto 0;
+    }
+
+    .tag-badge {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 30px;
+      transition: all 0.2s;
+    }
+
+    .tag-badge:hover {
+      background: rgba(0, 240, 255, 0.05);
+      border-color: rgba(0, 240, 255, 0.2);
+      color: #ffffff;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .section-header-sticky {
+        position: static;
+      }
+      .behance-section {
+        padding: 80px 40px;
+      }
+      .hero-title-large {
+        font-size: 5rem;
+      }
+      .brand-grid, .summary-grid, .blueprint-spec-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .composite-container {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .mock-laptop, .mock-phone-floating, .mock-pos-floating {
+        position: static;
+        width: 100%;
+        transform: none !important;
+      }
+      .flow-timeline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+      .flow-timeline::before {
+        display: none;
+      }
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 8. OVERLAPPING WEB COLLAGE SHOWCASE CSS */
+    .web-showcase-section {
+      padding: 110px 80px;
+      background: #020408;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .web-showcase-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 10% 80%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 20%, rgba(30, 120, 255, 0.15) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .web-collage-container {
+      position: relative;
+      height: 800px;
+      width: 100%;
+      margin: 80px auto 0;
+      max-width: 1150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .web-collage-glow {
+      position: absolute;
+      width: 750px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.28) 0%, rgba(30, 120, 255, 0.16) 45%, transparent 75%);
+      filter: blur(70px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .web-collage-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1500px;
+    }
+
+    .web-mockup {
+      position: absolute;
+      background: #020408; /* Dark backing matches dashboard background so letterbox blends in */
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.65);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+      transform-style: preserve-3d;
+      width: 58%;
+      aspect-ratio: 1.40625; /* Exact native aspect ratio of 2880x2048 dashboard screenshots */
+    }
+
+    .web-mockup img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Renders the entire dashboard pixel-perfect without any stretching or cropping */
+      display: block;
+      border-radius: 12px;
+    }
+
+    /* Stack positioning: 5 layers cascading down-right, Front is Home Premium shifted bottom-right */
+    .mock-back-3 {
+      left: 0%;
+      top: 0%;
+      transform: translate3d(0, 0, -200px) rotateY(12deg) rotateX(4deg);
+      z-index: 10;
+      opacity: 0.55;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .mock-back-2 {
+      left: 10%;
+      top: 9%;
+      transform: translate3d(0, 0, -150px) rotateY(12deg) rotateX(4deg);
+      z-index: 20;
+      opacity: 0.68;
+      border-color: rgba(0, 240, 255, 0.15);
+    }
+
+    .mock-back-1 {
+      left: 20%;
+      top: 18%;
+      transform: translate3d(0, 0, -100px) rotateY(12deg) rotateX(4deg);
+      z-index: 30;
+      opacity: 0.8;
+      border-color: rgba(0, 240, 255, 0.2);
+    }
+
+    .mock-middle {
+      left: 30%;
+      top: 27%;
+      transform: translate3d(0, 0, -50px) rotateY(12deg) rotateX(4deg);
+      z-index: 40;
+      opacity: 0.9;
+      border-color: rgba(0, 240, 255, 0.28);
+    }
+
+    .mock-front {
+      left: 40%;
+      top: 36%;
+      transform: translate3d(0, 0, 0) rotateY(12deg) rotateX(4deg);
+      z-index: 50;
+      opacity: 1;
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 
+        0 50px 100px rgba(0, 0, 0, 0.85),
+        0 0 45px rgba(0, 240, 255, 0.2);
+    }
+
+    /* Cinematic Focus Depth-Blur: ONLY blur and fade other mockups when a specific mockup is actively hovered */
+    .web-collage-wrapper:has(.web-mockup:hover) .web-mockup:not(:hover) {
+      opacity: 0.4;
+      filter: blur(4px) grayscale(20%);
+    }
+
+    /* The hovered item pop out, grows larger, and gets crystal clear focus */
+    .web-collage-wrapper .web-mockup:hover {
+      transform: translate3d(0, -25px, 120px) rotateY(0deg) rotateX(0deg) scale(1.08) !important;
+      opacity: 1 !important;
+      filter: blur(0px) grayscale(0%);
+      z-index: 100 !important;
+      border-color: rgba(0, 240, 255, 0.8) !important;
+      box-shadow: 
+        0 70px 140px rgba(0, 0, 0, 0.95),
+        0 0 60px rgba(0, 240, 255, 0.4) !important;
+    }
+
+    @media (max-width: 900px) {
+      .web-collage-container {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .web-mockup {
+        position: static;
+        width: 100%;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body class="blueprint-bg">
+
+  <div class="behance-container">
+    
+
+
+    <header class="hero-strip">
+      <div class="hero-card">
+        <div class="hero-top-info" style="justify-content: center;">
+          <div>UX/UI DESIGN & BRAND</div>
+        </div>
+        
+        <h1 class="hero-title-large">YA PAYMENTS</h1>
+        <p class="hero-desc-text">La evolución de la pasarela de cobros Ya Ganaste. Rediseño completo para web, móvil y terminal de venta POS.</p>
+        
+        <div class="hero-devices-collage">
+          <!-- Smartphone (Pre-rendered Mockup) -->
+          <div class="hero-device device-phone">
+            <img src="screen-plataformas-yapayments/APP-home.png" alt="App Home Screen Mockup" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=App+Home'">
+          </div>
+          
+          <!-- MacBook Pro -->
+          <div class="hero-device device-laptop">
+            <div class="hero-laptop-screen">
+              <img src="screen-plataformas-yapayments/ya-web/1-home/1-Home-PREMIUM.png" alt="Web Home Premium" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Home+Premium'">
+            </div>
+            <div class="hero-laptop-base">
+              <div class="hero-laptop-notch"></div>
+            </div>
+          </div>
+
+          <!-- POS Sola -->
+          <div class="hero-device device-pos">
+            <img src="screen-plataformas-yapayments/POS-SOLA.png" alt="POS Sola Terminal" onerror="this.src='https://placehold.co/400x680/090e1a/ffffff?text=POS+Sola'">
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- 1. ROLE & CONTRIBUTIONS SECTION WITH GRADIENT GLOW BACKGROUND -->
+    <section class="behance-section" style="background: #040710; overflow: hidden;">
+      <div class="split-layout" style="position: relative; z-index: 2;">
+        <div class="section-header-sticky">
+          <span class="sec-number">01</span>
+          <h2 class="sec-title">Mi Rol en el Proyecto</h2>
+          <span class="sec-subtitle">My contribution</span>
+        </div>
+        <div style="position: relative;">
+          <!-- Localized section glow directly behind the card grid to generate the visual reference's vivid glow -->
+          <div style="position: absolute; width: 450px; height: 350px; background: radial-gradient(ellipse at center, rgba(30, 120, 255, 0.25) 0%, rgba(0, 240, 255, 0.15) 40%, transparent 75%); filter: blur(40px); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 1;"></div>
+          
+          <div class="role-grid" style="position: relative; z-index: 2;">
+            
+            <div class="role-card">
+              <div class="role-card-icon"><i class="ti ti-components"></i></div>
+              <h5 class="role-card-title">Design System</h5>
+              <p class="role-card-text">Creación y mantenimiento del sistema de tokens, colores corporativos, variantes tipográficas e íconos personalizados para el escalamiento de los 3 productos.</p>
+            </div>
+ 
+            <div class="role-card">
+              <div class="role-card-icon"><i class="ti ti-device-mobile"></i></div>
+              <h5 class="role-card-title">UX / UI Diseño</h5>
+              <p class="role-card-text">Diseño integral de wireframes y pantallas finales de alta fidelidad para el portal administrativo Web, la aplicación móvil y la terminal de cobro físico POS.</p>
+            </div>
+ 
+            <div class="role-card">
+              <div class="role-card-icon"><i class="ti ti-world"></i></div>
+              <h5 class="role-card-title">Multipaís</h5>
+              <p class="role-card-text">Localización de la experiencia de usuario y alineación de normativas financieras para México, Colombia, Perú y 4 países latinoamericanos adicionales.</p>
+            </div>
+ 
+          </div>
+          <div class="tags-container" style="justify-content: flex-start; margin-top: 40px; max-width: 100%; position: relative; z-index: 2;">
+            <span class="tag-badge">UX Research</span>
+            <span class="tag-badge">UI Design</span>
+            <span class="tag-badge">Design System</span>
+            <span class="tag-badge">Iconografía</span>
+            <span class="tag-badge">Figma</span>
+            <span class="tag-badge">Fintech</span>
+            <span class="tag-badge">7 países</span>
+            <span class="tag-badge">Web · App · POS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- 2. SUMMARY & STATS SECTION -->
+    <section class="behance-section" style="overflow: hidden;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">02</span>
+          <h2 class="sec-title">El Rediseño Financiero de Latinoamérica</h2>
+          <span class="sec-subtitle">Overview & stats</span>
+        </div>
+        <div style="position: relative;">
+          <p class="summary-p" style="position: relative; z-index: 2;">El producto opera en 7 países. Nuestro objetivo fue unificar la identidad visual, reducir la fricción en cobros y optimizar las interfaces de los comercios para aumentar la conversión y agilizar la conciliación bancaria.</p>
+          
+          <!-- Localized section glow directly behind the stats cards to generate the glass blur backdrop -->
+          <div style="position: absolute; width: 400px; height: 300px; background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.22) 0%, rgba(30, 120, 255, 0.12) 50%, transparent 80%); filter: blur(35px); bottom: -20px; right: 20px; pointer-events: none; z-index: 1;"></div>
+          
+          <div class="stats-card-grid" style="position: relative; z-index: 2;">
+            <div class="stats-card">
+              <div class="stats-num">3</div>
+              <div class="stats-lbl">plataformas rediseñadas</div>
+            </div>
+            <div class="stats-card">
+              <div class="stats-num">7</div>
+              <div class="stats-lbl">países de operación</div>
+            </div>
+            <div class="stats-card">
+              <div class="stats-num">1</div>
+              <div class="stats-lbl">design system unificado</div>
+            </div>
+            <div class="stats-card">
+              <div class="stats-num">∞</div>
+              <div class="stats-lbl">íconos personalizados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- 3. CHALLENGE & SOLUTION CARD LAYOUT WITH GLASS GLOWS -->
+    <section class="behance-section" style="background: #040710; overflow: hidden;">
+      <div class="split-layout" style="position: relative; z-index: 2;">
+        <div class="section-header-sticky">
+          <span class="sec-number">03</span>
+          <h2 class="sec-title">Estrategia del Producto</h2>
+          <span class="sec-subtitle">Análisis del desafío</span>
+        </div>
+        <div style="position: relative;">
+          <!-- Localized section glow directly behind the challenge/solution cards -->
+          <div style="position: absolute; width: 500px; height: 400px; background: radial-gradient(ellipse at center, rgba(30, 120, 255, 0.22) 0%, rgba(0, 240, 255, 0.12) 50%, transparent 80%); filter: blur(45px); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 1;"></div>
+          
+          <div class="challenge-solution-container" style="position: relative; z-index: 2;">
+            <!-- CHALLENGE CARD -->
+            <div class="cs-card cs-challenge">
+              <div class="cs-header">
+                <div class="cs-icon"><i class="ti ti-alert-triangle"></i></div>
+                <h4 style="font-family: var(--font-title); font-size: 1.25rem;">El desafío</h4>
+              </div>
+              <div class="cs-list">
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Las 3 plataformas (web, app y POS) tenían interfaces inconsistentes entre sí, sin un lenguaje visual unificado.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">La experiencia de usuario era compleja y poco intuitiva, generando fricción en flujos clave como cobros y reportes.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">El producto debía funcionar en 7 países diferentes, cada uno con contextos culturales y regulatorios distintos.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">No existía un design system, lo que hacía los componentes difíciles de escalar y mantener entre equipos.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SOLUTION CARD -->
+            <div class="cs-card cs-solution">
+              <div class="cs-header">
+                <div class="cs-icon"><i class="ti ti-circle-check"></i></div>
+                <h4 style="font-family: var(--font-title); font-size: 1.25rem;">Lo que se logró</h4>
+              </div>
+              <div class="cs-list">
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Rediseño completo de interfaz en los 3 dispositivos: web, app móvil y terminal POS — con identidad visual coherente.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Desarrollo de un design system completo con íconos personalizados, tipografía, colores y componentes reutilizables.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Experiencia de usuario más amigable e intuitiva: flujos simplificados que reducen errores y tiempo de onboarding.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Sistema escalable adaptado para 7 países, permitiendo customización local sin perder coherencia de marca global.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BRAND ASSETS Showcase (Typography & Icons) -->
+    <section class="behance-section" style="overflow: hidden;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">04</span>
+          <h2 class="sec-title">Elementos Visuales & Identidad</h2>
+          <span class="sec-subtitle">Specimen assets</span>
+        </div>
+        <div style="position: relative;">
+          <!-- Localized section glow directly behind the identity cards -->
+          <div style="position: absolute; width: 450px; height: 350px; background: radial-gradient(ellipse at center, rgba(30, 120, 255, 0.22) 0%, rgba(0, 240, 255, 0.12) 50%, transparent 80%); filter: blur(40px); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 1;"></div>
+          
+          <div class="brand-grid" style="position: relative; z-index: 2;">
+            <!-- Typo spec -->
+            <div class="typo-showcase">
+              <div class="specimen-header">
+                <span>TYPOGRAPHIC SPECIMEN</span>
+                <span>GOTHAM FONT FAMILY</span>
+              </div>
+              <h3 class="typo-specimen-large" style="font-family: 'Gotham', 'Montserrat', sans-serif;">Aa</h3>
+              <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 24px; font-weight: 300; line-height: 1.6;">Gotham es una tipografía geométrica icónica inspirada en la arquitectura neoyorquina, que aporta una estructura honesta, profesional y moderna.</p>
+              <div class="font-info-row">
+                <div class="font-info-box">
+                  <h5>Title Weight</h5>
+                  <p>Gotham Bold</p>
+                </div>
+                <div class="font-info-box">
+                  <h5>Body Family</h5>
+                  <p>Gotham Book</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom Icons spec -->
+            <div>
+              <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 24px; line-height: 1.6;">Diseño y desarrollo de un paquete de iconos personalizados creados para toda la plataforma. Bajo una estética estrictamente minimalista, de trazos sencillos y geometría limpia, están diseñados para ser altamente memorables y fáciles de reconocer en cualquiera de las interfaces.</p>
+              
+              <div class="icon-showcase-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                  <img src="Visible.svg" alt="Visible" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Visible.svg</span>
+                </div>
+                <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                  <img src="Tarjeta.svg" alt="Tarjeta" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Tarjeta.svg</span>
+                </div>
+                <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                  <img src="Wallet.svg" alt="Wallet" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Wallet.svg</span>
+                </div>
+                <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                  <img src="Digitales.svg" alt="Digitales" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Digitales.svg</span>
+                </div>
+                <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                  <img src="Banco.svg" alt="Banco" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Banco.svg</span>
+                </div>
+                <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                  <img src="seguridad.svg" alt="Seguridad" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">seguridad.svg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. COMPOSITE ECOLOGY DEVICE SHOWCASE (3D COLLAGE) -->
+    <section class="composite-section">
+      <div class="split-layout" style="margin-bottom: 60px;">
+        <div>
+          <span class="sec-number">05</span>
+          <h2 class="sec-title">El Ecosistema Conectado</h2>
+          <span class="sec-subtitle">Ecosystem overview</span>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">La potencia de Ya Payments radica en la integración. La misma transacción iniciada en la terminal POS física se refleja instantáneamente en el dashboard web administrativo y notifica al usuario en la app móvil.</p>
+        </div>
+      </div>
+
+      <div class="composite-container">
+        <!-- Connecting Technical Indicator Line 1 -->
+        <div class="indicator-line" style="width: 280px; transform: rotate(15deg); left: 350px; top: 120px;">
+          <span class="indicator-dot"></span>
+          <span class="indicator-label">SYNC FEED</span>
+        </div>
+
+        <!-- Connecting Technical Indicator Line 2 -->
+        <div class="indicator-line" style="width: 250px; transform: rotate(-25deg); right: 180px; bottom: 250px;">
+          <span class="indicator-label">NFC GATEWAY</span>
+          <span class="indicator-dot"></span>
+        </div>
+
+        <!-- Web Desktop (MacBook) -->
+        <div class="mock-laptop">
+          <div class="mock-laptop-screen">
+            <img src="screen-plataformas-yapayments/ya-web/3+gestion/1-conciliacion/1+gestiónx-expandido.png" alt="Ecosistema Conciliación Web" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Conciliacion+Web+Dashboard'">
+          </div>
+          <div class="mock-laptop-base">
+            <div class="mock-laptop-notch"></div>
+          </div>
+        </div>
+
+        <!-- POS Terminal (Smart POS) -->
+        <div class="mock-pos-floating">
+          <img src="screen-plataformas-yapayments/POS-SOLA.png" alt="Ecosistema POS Cobros" onerror="this.src='https://placehold.co/400x680/090e1a/ffffff?text=POS+Sola'">
+        </div>
+
+        <!-- Mobile App (iPhone) -->
+        <div class="mock-phone-floating">
+          <img src="screen-plataformas-yapayments/APP-home.png" alt="Ecosistema App Móvil" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=App+Home'">
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. HIGH FIDELITY BLUEPRINT SPEC SHEET -->
+    <section class="behance-section" style="background: #03050b; overflow: hidden;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">06</span>
+          <h2 class="sec-title">Criterio y Anatomía de la App</h2>
+          <span class="sec-subtitle">Blueprint specs</span>
+        </div>
+        <div style="position: relative;">
+          <!-- Localized section glow directly behind the blueprint layout box -->
+          <div style="position: absolute; width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.35) 0%, rgba(30, 120, 255, 0.25) 45%, rgba(30, 80, 220, 0.1) 75%, transparent 100%); filter: blur(60px); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 1;"></div>
+          
+          <div class="blueprint-spec-box" style="position: relative; z-index: 2;">
+            <div class="blueprint-grid-overlay"></div>
+            <div class="blueprint-spec-grid">
+              
+              <!-- Blueprint Screen Specs -->
+              <div style="position: relative;">
+                <div class="spec-device-frame">
+                  <img src="screen-plataformas-yapayments/ya-app/3-home/2-Home-con-tarjeta.png" alt="Especificaciones de Diseño Wallet" onerror="this.src='https://placehold.co/240x510/080c14/ffffff?text=Wallet+App'">
+                  <!-- Blueprint Layout Helper overlay -->
+                  <div class="spec-line line-v-center"></div>
+                  <div class="spec-line line-margin-left"></div>
+                  <div class="spec-line line-margin-right"></div>
+                  <div class="spec-note note-margin">16px Margin</div>
+                  <div class="spec-note note-tab-bar">Grid aligned tab items</div>
+                </div>
+              </div>
+
+              <!-- Technical Details list -->
+              <div class="spec-details-list">
+                <h4 style="font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 10px;">Especificaciones Técnicas</h4>
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 20px;">Cada componente fue delineado bajo una estricta rejilla de 8px, asegurando legibilidad en pantallas de gama baja y optimización en dispositivos POS de tamaño compacto.</p>
+                
+                <div class="spec-detail-item">
+                  <h6>01 / Margen General</h6>
+                  <p>Margen simétrico de 16px para preservar la zona segura en pantallas móviles sin marcos físicos.</p>
+                </div>
+                <div class="spec-detail-item">
+                  <h6>02 / Área de Toque Útil</h6>
+                  <p>Botones de acción principal configurados a un mínimo de 48px de alto para mejorar la interacción en movimiento.</p>
+                </div>
+                <div class="spec-detail-item">
+                  <h6>03 / Control de Balance</h6>
+                  <p>Visualización jerárquica con números grandes Outfit para lectura inmediata de saldos de los comercios.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION: APP ISOMETRIC COLLAGE GRID -->
+    <style>
+      .app-showcase-section {
+        background: #04060c;
+        position: relative;
+        overflow: hidden;
+        padding: 120px 80px;
+      }
+      
+       .isometric-container-outer {
+        position: relative;
+        width: 100%;
+        height: 880px;
+        margin-top: 60px;
+        overflow: hidden;
+        border-radius: 24px;
+        background: radial-gradient(circle at center, #1b4cc4 0%, #060b1e 100%); /* Blue gradient background matching the hero header strip */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Edge fades to smoothly blend screen cut-offs using the new background base color #060b1e */
+      .isometric-container-outer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 140px;
+        background: linear-gradient(to bottom, #060b1e 0%, transparent 100%);
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      .isometric-container-outer::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 140px;
+        background: linear-gradient(to top, #060b1e 0%, transparent 100%);
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      /* Blueprint background pattern specific to the app showcase block */
+      .isometric-blueprint-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          radial-gradient(circle at 50% 50%, rgba(30, 120, 255, 0.08) 0%, transparent 60%),
+          linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        background-size: 100% 100%, 30px 30px, 30px 30px;
+        pointer-events: none;
+      }
+
+      /* Grid elements containing tilted overlapping app screens */
+      .isometric-collage-wrapper {
+        position: relative;
+        width: 1400px;
+        height: 850px;
+        transform: rotate(-10deg) skew(6deg) scale(0.95);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 25px;
+        padding: 20px;
+      }
+
+      .iso-column {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* Push alternate columns down/up slightly for a dynamic staggered layout */
+      .iso-column:nth-child(even) {
+        transform: translateY(40px);
+      }
+      
+      .iso-column:nth-child(odd) {
+        transform: translateY(-20px);
+      }
+
+      /* Outer device shell mimicking a physical phone border to protect screen corners */
+      .isometric-phone-card {
+        background: #020408;
+        border-radius: 28px;
+        border: 11px solid #101216; /* Thick border representing physical bezel to protect screenshot content corners */
+        outline: 1px solid rgba(255, 255, 255, 0.15);
+        overflow: hidden;
+        width: 215px;
+        height: 440px;
+        box-shadow: 
+          -15px 25px 40px rgba(0, 0, 0, 0.75),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+      }
+
+      .isometric-phone-card:hover {
+        transform: translate3d(-8px, -12px, 15px);
+        box-shadow: 
+          -25px 40px 60px rgba(0, 0, 0, 0.9),
+          0 0 20px rgba(0, 240, 255, 0.2);
+        border-color: #171a22;
+        outline-color: var(--color-accent);
+      }
+
+      .isometric-phone-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 18px; /* Inner screen border radius matches outer container inner curves */
+      }
+
+      .isometric-phone-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+        pointer-events: none;
+        border-radius: 18px;
+      }
+
+      @media (max-width: 1150px) {
+        .isometric-collage-wrapper {
+          grid-template-columns: repeat(3, 1fr);
+          width: 100%;
+          transform: none;
+          height: auto;
+        }
+        .iso-column {
+          transform: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .isometric-container-outer {
+          height: auto;
+          padding: 40px 20px;
+        }
+        .isometric-collage-wrapper {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          padding: 0;
+        }
+        .isometric-phone-card {
+          width: 100%;
+          height: 380px;
+          border-radius: 20px;
+          border-width: 6px;
+        }
+        .isometric-phone-card img {
+          border-radius: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .isometric-collage-wrapper {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <section class="app-showcase-section">
+      <div class="split-layout" style="margin-bottom: 50px;">
+        <div>
+          <span class="sec-number">07</span>
+          <h2 class="sec-title">Interfaz de la App Móvil</h2>
+          <span class="sec-subtitle">Mobile UI Showcase</span>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">
+            Una experiencia nativa diseñada para brindar fluidez, control y transparencia. Desde la gestión de saldos y cuentas de negocio, hasta transferencias instantáneas SPEI y el bloqueo dinámico de tarjetas físicas o digitales.
+          </p>
+        </div>
+      </div>
+
+      <div class="isometric-container-outer">
+        <div class="isometric-blueprint-grid"></div>
+        <div class="isometric-collage-wrapper">
+          
+          <!-- Column 1 -->
+          <div class="iso-column">
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/3-home/1-Home-sin-tarjeta.png" alt="Home sin Tarjeta" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Home'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/8-wallet/5-con-tarjeta-vinculada/1-Tarjeta.png" alt="Detalle Tarjeta" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Tarjeta'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/9-htp/1-recargas/1-Digitales-Recargas.png" alt="Digitales Recargas" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Digitales'">
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="iso-column">
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/12-movimientos/3-Detalles/3-HTP Recargas.png" alt="Detalle Recarga" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Recargas'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/10-zona-cobro/3-liga/1-creacion/5-Liga generica4.png" alt="Creación de Ligas" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Ligas'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/3-home/5-Home-Price.png" alt="Home Indicador Precios" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Stats'">
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="iso-column">
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/5-moneyout/3-transferir/2-Cuentas.png" alt="Transferencias" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Cuentas'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/5-moneyout/2-traspaso-tarjeta/7-Listo.png" alt="Traspaso Listo" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Listo'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/5-moneyout/2-traspaso-tarjeta/8-eTicket-master.png" alt="Comprobante eTicket" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=eTicket'">
+            </div>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="iso-column">
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/9-htp/1-recargas/1-Digitales-Recargas.png" alt="Digitales Recargas" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Digitales'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/5-moneyout/2-traspaso-tarjeta/4-Monto.png" alt="Monto a Traspasar" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Monto'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/8-wallet/1-wallet-home/2-wallet-3p.png" alt="Wallet con Tarjetas" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Wallet'">
+            </div>
+          </div>
+
+          <!-- Column 5 -->
+          <div class="iso-column">
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/14-menu/1-Menú.png" alt="Menú General" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Menú'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/10-zona-cobro/2-pocket/2-Pocket.png" alt="Cobro Pocket" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Pocket'">
+            </div>
+            <div class="isometric-phone-card">
+              <img src="screen-plataformas-yapayments/ya-app/10-zona-cobro/3-liga/2-listado/2-Lista.png" alt="Listado Ligas de Cobro" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=Ligas'">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. OVERLAPPING WEB COLLAGE SHOWCASE (WEB) -->
+    <section class="web-showcase-section">
+      <div class="behance-section-header-wide">
+        <div class="split-layout">
+          <div class="section-header-sticky">
+            <span class="sec-number">08</span>
+            <h2 class="sec-title">Interfaz de la Plataforma Web</h2>
+            <span class="sec-subtitle">Web UI Showcase</span>
+          </div>
+          <div>
+            <p class="summary-p" style="margin-bottom: 0;">Una consola de administración completa diseñada para control administrativo total. Desde la conciliación automática de transacciones en tiempo real, hasta la configuración avanzada de sucursales, usuarios y descarga de reportes contables.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="web-collage-container">
+        <div class="web-collage-glow"></div>
+        <div class="web-collage-wrapper">
+          
+          <!-- Back Screen 3 -->
+          <div class="web-mockup mock-back-3">
+            <img src="screen-plataformas-yapayments/ya-web/6-zona-cobro/2-venta-qr/1-Venta-QR.png" alt="Venta QR Dashboard" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Venta+QR'">
+          </div>
+
+          <!-- Back Screen 2 -->
+          <div class="web-mockup mock-back-2">
+            <img src="screen-plataformas-yapayments/ya-web/5-htp/1-recargas/3-Digitales-Recargas3.png" alt="Productos Digitales Recargas" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Recargas'">
+          </div>
+
+          <!-- Back Screen 1 -->
+          <div class="web-mockup mock-back-1">
+            <img src="screen-plataformas-yapayments/ya-web/3+gestion/2-minegocio/6-infinity-View.png" alt="Infinity View Dashboard" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Infinity+View'">
+          </div>
+
+          <!-- Middle Screen -->
+          <div class="web-mockup mock-middle">
+            <img src="screen-plataformas-yapayments/ya-web/3+gestion/1-conciliacion/1+gestiónx-expandido.png" alt="Conciliación Web Dashboard" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Conciliacion+Web'">
+          </div>
+
+          <!-- Front Screen (Home Premium Dashboard) -->
+          <div class="web-mockup mock-front">
+            <img src="screen-plataformas-yapayments/ya-web/1-home/1-Home-PREMIUM.png" alt="Home Premium Panel" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Home+Premium'">
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. SMART POS TERMINAL SEQUENCE -->
+    <section class="behance-section">
+      <div class="split-layout" style="margin-bottom: 50px;">
+        <div>
+          <span class="sec-number">09</span>
+          <h2 class="sec-title">Flujo Completo Smart POS</h2>
+          <span class="sec-subtitle">Ecosystem flow</span>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">Optimizamos la experiencia de cobro en terminales físicas de punto de venta (TPV). La interfaz POS permite capturar montos, cobrar con tarjeta o QR, e imprimir recibos con flujos rápidos que reducen la cola de espera de los clientes en tienda.</p>
+        </div>
+      </div>
+
+      <!-- Timeline step sequence -->
+      <div class="flow-timeline" style="grid-template-columns: repeat(5, 1fr); gap: 40px 16px;">
+        
+        <!-- Step 1 -->
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <div class="flow-device-container">
+            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/1-TPV-Cobrar-Tarjeta-1.png" alt="POS Cobro Tarjeta 1" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Monto'">
+          </div>
+          <h5 class="flow-step-title">1. Monto de Cobro</h5>
+          <p class="flow-step-desc">El comercio captura la cantidad a cobrar y pulsa el botón para continuar con tarjeta.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <div class="flow-device-container">
+            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/4-TPV-Tarjeta.png" alt="POS Lectura Tarjeta" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Tarjeta'">
+          </div>
+          <h5 class="flow-step-title">2. Insertar/Acercar Tarjeta</h5>
+          <p class="flow-step-desc">Indicaciones claras para lectura NFC sin contacto o lectura de chip tradicional en el lector.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <div class="flow-device-container">
+            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/5-TPV-PIN.png" alt="POS NIP" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=PIN'">
+          </div>
+          <h5 class="flow-step-title">3. Ingresar NIP/PIN</h5>
+          <p class="flow-step-desc">Teclado numérico dinámico y seguro para autenticar la transacción con la clave del cliente.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <div class="flow-device-container">
+            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/7-Aceptado.png" alt="POS Aceptado" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Aceptado'">
+          </div>
+          <h5 class="flow-step-title">4. Pago Aprobado</h5>
+          <p class="flow-step-desc">Indicación de éxito visual y auditiva de que los fondos han sido validados.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="flow-step">
+          <div class="flow-step-num">05</div>
+          <div class="flow-device-container">
+            <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/9-Cliente-Ticket.png" alt="POS Ticket Cliente" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Ticket'">
+          </div>
+          <h5 class="flow-step-title">5. Comprobante Emitido</h5>
+          <p class="flow-step-desc">El cliente visualiza su recibo en pantalla y finaliza el proceso de compra de forma segura.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. BRAND INTERSTITIAL SCREEN -->
+    <section class="brand-interstitial">
+      <div class="interstitial-glow"></div>
+      <h3 class="interstitial-title">"El 90% de los comercios redujeron su tiempo de cobro en caja a menos de 10 segundos."</h3>
+      <p class="interstitial-desc">La unificación visual y de flujos simplificó la adopción del producto en más de 20,000 establecimientos activos en Latinoamérica.</p>
+    </section>
+
+    <!-- 10. CASE STUDY FOOTER -->
+    <footer class="behance-footer" style="padding: 80px 0; background: transparent; border-top: none;">
+      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-tertiary);">
+        YA PAYMENTS — UX/UI CASE STUDY
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

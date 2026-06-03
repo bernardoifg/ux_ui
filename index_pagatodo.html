@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco PagaTodo — UX/UI Case Study</title>
+  
+  <!-- Fonts: Outfit (Titles) and Plus Jakarta Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <style>
+    :root {
+      --color-bg-darkest: #040207;
+      --color-bg-dark: #0b0716;
+      --color-bg-card: #120b22;
+      --color-primary: #6b3cdc;
+      --color-primary-rgb: 107, 60, 220;
+      --color-accent: #e5a93c;
+      --color-accent-rgb: 229, 169, 60;
+      --color-success: #00e676;
+      --color-danger: #ff1744;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #9691a3;
+      --color-text-tertiary: #5f5a6b;
+      
+      --font-title: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-darkest);
+      color: var(--color-text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* CONTINUOUS BEHANCE STRIP CONTAINER */
+    .behance-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--color-bg-darkest);
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+
+    /* Fixed Sticky Navigation */
+    .nav-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 1.8rem;
+      letter-spacing: -2px;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--color-accent);
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(107, 60, 220, 0.3);
+    }
+
+    /* BACKGROUND LAYOUT BLUEPRINT GRID */
+    .blueprint-bg {
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(107, 60, 220, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(229, 169, 60, 0.05) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+    }
+
+    /* SECTION LAYOUTS */
+    .behance-section {
+      padding: 110px 80px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Asymmetric Split Layout: Title (left) / Content (right) */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 80px;
+    }
+
+    .section-header-sticky {
+      position: sticky;
+      top: 120px;
+    }
+
+    .sec-number {
+      font-family: var(--font-title);
+      font-size: 7rem;
+      font-weight: 800;
+      line-height: 0.8;
+      color: rgba(255, 255, 255, 0.08);
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
+      margin-bottom: 20px;
+      display: block;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+
+    .sec-title {
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .sec-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--color-accent);
+          letter-spacing: 2px;
+    }
+
+    /* 1. HERO SECTION */
+    .hero-strip {
+      padding: 60px 40px 30px;
+      background: var(--color-bg-darkest);
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at center, #5125b3 0%, #0b071a 100%);
+      border-radius: 40px;
+      padding: 80px 40px 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: 100%;
+    }
+
+    .hero-top-info {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: var(--font-body);
+      margin-bottom: 50px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-top-info div:nth-child(2) {
+      max-width: 450px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.72rem;
+    }
+
+    .hero-title-large {
+      font-family: var(--font-title);
+      font-size: 8rem;
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -5px;
+      color: #ffffff;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 60%, rgba(255,255,255,0.4) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc-text {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 650px;
+      line-height: 1.5;
+      font-weight: 300;
+      margin-bottom: 60px;
+    }
+
+    /* Hero MacBook Placement */
+    .hero-laptop {
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+      transform: translateY(20px);
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+    }
+
+    .hero-laptop-screen {
+      background: #090514;
+      border: 12px solid #1c142d;
+      border-bottom: 4px solid #1c142d;
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      position: relative;
+    }
+
+    .hero-laptop-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-laptop-base {
+      height: 16px;
+      background: linear-gradient(to bottom, #d1d5db 0%, #858c9b 100%);
+      border-radius: 0 0 14px 14px;
+      position: relative;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-laptop-notch {
+      width: 100px;
+      height: 5px;
+      background: #000;
+      margin: 0 auto;
+      border-radius: 0 0 5px 5px;
+    }
+
+    /* Rock base background representation */
+    .hero-rock-base {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: #040207;
+      z-index: 4;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: var(--color-text-tertiary);
+    }
+
+    .mouse-icon {
+      width: 20px;
+      height: 32px;
+      border: 2px solid var(--color-text-tertiary);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .mouse-wheel {
+      width: 4px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scrollWheel 1.5s infinite;
+    }
+
+    @keyframes scrollWheel {
+      0% { top: 6px; opacity: 1; }
+      100% { top: 16px; opacity: 0; }
+    }
+
+    /* 2. STATS & SUMMARY SECTION */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .summary-p {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .stats-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stats-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stats-card:hover {
+      border-color: rgba(107, 60, 220, 0.3);
+      background: rgba(107, 60, 220, 0.02);
+      transform: translateY(-5px);
+    }
+
+    .stats-num {
+      font-family: var(--font-title);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stats-lbl {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Challenge / Solution Cards */
+    .challenge-solution-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .cs-card {
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .cs-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+
+    .cs-challenge {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.02) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+    .cs-challenge::before {
+      background: #ef4444;
+      box-shadow: 0 0 15px #ef4444;
+    }
+
+    .cs-solution {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.02) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+    .cs-solution::before {
+      background: #10b981;
+      box-shadow: 0 0 15px #10b981;
+    }
+
+    .cs-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .cs-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .cs-challenge .cs-icon {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .cs-solution .cs-icon {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .cs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cs-item {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .cs-item-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 10px;
+      flex-shrink: 0;
+    }
+
+    .cs-challenge .cs-item-bullet { background: #ef4444; }
+    .cs-solution .cs-item-bullet { background: #10b981; }
+
+    .cs-item-text {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* 3. MULTI-PROFILE GRID LAYOUT */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .profile-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 24px;
+      padding: 40px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      filter: blur(40px);
+      bottom: -70px;
+      right: -70px;
+      opacity: 0.15;
+      transition: all 0.3s;
+    }
+
+    .profile-card-pymes::after { background: var(--color-primary); }
+    .profile-card-sofomes::after { background: var(--color-accent); }
+    .profile-card-personal::after { background: var(--color-success); }
+
+    .profile-card:hover {
+      background: rgba(255, 255, 255, 0.02);
+      transform: translateY(-8px);
+    }
+    
+    .profile-card-pymes:hover { border-color: rgba(107, 60, 220, 0.3); }
+    .profile-card-sofomes:hover { border-color: rgba(229, 169, 60, 0.3); }
+    .profile-card-personal:hover { border-color: rgba(0, 230, 118, 0.3); }
+
+    .profile-card:hover::after {
+      opacity: 0.3;
+      transform: scale(1.2);
+    }
+
+    .profile-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 4px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: inline-block;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .profile-badge-pyme { color: #b18fff; border-color: rgba(177, 143, 255, 0.2); }
+    .profile-badge-sofom { color: var(--color-accent); border-color: rgba(229, 169, 60, 0.2); }
+    .profile-badge-personal { color: var(--color-success); border-color: rgba(0, 230, 118, 0.2); }
+
+    .profile-card h4 {
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .profile-card p {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 4. BRAND SPECIMEN */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+    }
+
+    .typo-showcase {
+      background: #0d091a;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+    }
+
+    .specimen-header {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .typo-specimen-large {
+      font-family: var(--font-title);
+      font-size: 7rem;
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+    }
+
+    .font-info-row {
+      margin-top: 40px;
+      display: flex;
+      gap: 40px;
+    }
+
+    .font-info-box h5 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .font-info-box p {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* 5. VIRTUAL HIGH FIDELITY DEVICE MOCKUPS (CSS/HTML SCREENS) */
+    .macbook-section {
+      padding: 120px 80px;
+      background: radial-gradient(circle at bottom, #1b0c33 0%, #040207 100%);
+      text-align: center;
+    }
+
+    .macbook-frame {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      perspective: 1000px;
+    }
+
+    .macbook-screen {
+      background: #090514;
+      border: 14px solid #1c142d;
+      border-bottom: 4px solid #1c142d;
+      border-radius: 24px 24px 0 0;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .macbook-base {
+      height: 18px;
+      background: linear-gradient(to bottom, #d1d5db 0%, #858c9b 100%);
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      border-top: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .macbook-notch {
+      width: 120px;
+      height: 6px;
+      background: #000;
+      margin: 0 auto;
+      border-radius: 0 0 6px 6px;
+    }
+
+    /* PyME CSS UI Mockup inside Laptop screen */
+    .pyme-ui-specimen {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: #08040d;
+      min-height: 520px;
+    }
+
+    .pyme-ui-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 12px;
+      font-size: 0.8rem;
+    }
+
+    .pyme-ui-nav-brand {
+      font-family: var(--font-title);
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pyme-ui-nav-brand span {
+      width: 8px;
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    .pyme-ui-nav-profile {
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+    }
+
+    .pyme-ui-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
+    .pyme-ui-widget {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .widget-title-spec {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .widget-value-spec {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--color-success);
+      margin-bottom: 12px;
+    }
+
+    .chart-svg-container {
+      width: 100%;
+      height: 100px;
+    }
+
+    .chart-path {
+      fill: none;
+      stroke: var(--color-primary);
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .pyme-ui-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .pyme-ui-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      padding: 10px;
+      background: rgba(255,255,255,0.02);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 4px;
+    }
+
+    .pyme-ui-item strong {
+      font-family: var(--font-mono);
+      color: #ffffff;
+    }
+
+    /* 6. MOBILE PHONES GRID (HTML/CSS MOBILE SCREENS) */
+    .mobile-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .phone-mockup-wrap {
+      perspective: 1000px;
+    }
+
+    .phone-mockup-body {
+      width: 260px;
+      height: 530px;
+      background: #040207;
+      border: 8px solid #1c142d;
+      border-radius: 40px;
+      margin: 0 auto;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .phone-mockup-body:hover {
+      transform: translateY(-10px) rotateY(-5deg);
+      box-shadow: 0 40px 80px rgba(107, 60, 220, 0.25);
+    }
+
+    .phone-ui-status-bar {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-text-secondary);
+    }
+
+    .phone-ui-card {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #150b2b 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 140px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    .phone-ui-card-balance {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 6px;
+    }
+
+    .phone-quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .phone-action-btn-spec {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      text-align: center;
+      padding: 10px 5px;
+      font-size: 0.6rem;
+      transition: all 0.2s;
+    }
+
+    .phone-action-btn-spec:hover {
+      background: rgba(107, 60, 220, 0.1);
+      border-color: var(--color-primary);
+    }
+
+    .phone-action-btn-spec i {
+      color: var(--color-accent);
+      font-size: 1rem;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    /* 7. TECHNICAL BLUEPRINT AUDIT SPEC */
+    .blueprint-spec-box {
+      background: #090514;
+      border: 1px solid rgba(107, 60, 220, 0.2);
+      border-radius: 20px;
+      padding: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blueprint-grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(107, 60, 220, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(107, 60, 220, 0.02) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+
+    .blueprint-spec-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .spec-device-frame {
+      width: 250px;
+      height: 510px;
+      background: #040207;
+      border-radius: 40px;
+      border: 8px solid #1c142d;
+      position: relative;
+      margin: 0 auto;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Overlay layout helper lines */
+    .spec-line {
+      position: absolute;
+      background: rgba(229, 169, 60, 0.7);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .line-v-center {
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      border-left: 1px dashed var(--color-accent);
+    }
+
+    .line-margin-left {
+      left: 16px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-accent);
+    }
+
+    .line-margin-right {
+      right: 16px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-accent);
+    }
+
+    .spec-note {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      background: var(--color-accent);
+      color: #000000;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 3px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .note-margin {
+      top: 150px;
+      left: 20px;
+    }
+
+    .note-tab-bar {
+      bottom: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .spec-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .spec-detail-item {
+      border-left: 2px solid var(--color-accent);
+      padding-left: 20px;
+    }
+
+    .spec-detail-item h6 {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+
+    .spec-detail-item p {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* ROLE DETAIL SECTION */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .role-card {
+      background: rgba(255,255,255,0.01);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.3s;
+    }
+
+    .role-card:hover {
+      background: rgba(255,255,255,0.02);
+      border-color: rgba(107,60,220,0.25);
+    }
+
+    .role-card-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(107, 60, 220, 0.1);
+      color: var(--color-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
+    .role-card-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .role-card-text {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* FOOTER & CTA */
+    .behance-footer {
+      padding: 160px 80px;
+      text-align: center;
+      background: radial-gradient(circle at top, #140b28 0%, #040207 100%);
+      position: relative;
+    }
+
+    .footer-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .footer-title-large {
+      font-family: var(--font-title);
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 40px;
+    }
+
+    .tags-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 60px auto 0;
+    }
+
+    .tag-badge {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 30px;
+      transition: all 0.2s;
+    }
+
+    .tag-badge:hover {
+      background: rgba(107, 60, 220, 0.05);
+      border-color: rgba(107, 60, 220, 0.2);
+      color: #ffffff;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .section-header-sticky {
+        position: static;
+      }
+      .behance-section {
+        padding: 80px 40px;
+      }
+      .hero-title-large {
+        font-size: 5rem;
+      }
+      .brand-grid, .summary-grid, .blueprint-spec-grid, .profiles-grid, .mobile-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .mock-laptop {
+        width: 100%;
+      }
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="blueprint-bg">
+
+  <div class="behance-container">
+    
+
+
+    <header class="hero-strip">
+      <div class="hero-card">
+        <div class="hero-top-info" style="justify-content: center;">
+          <div>BANCA & FINTECH UX/UI</div>
+        </div>
+        
+        <h1 class="hero-title-large">PAGATODO</h1>
+        <p class="hero-desc-text">Plataforma bancaria multiperfilada comercial y personal, diseñada específicamente para el mercado financiero de la CDMX.</p>
+        
+        <div class="hero-laptop">
+          <div class="hero-laptop-screen">
+            <!-- LIVE CSS PYME PORTAL SPECIMEN -->
+            <div class="pyme-ui-specimen" style="min-height: auto; aspect-ratio: 16/10;">
+              <div class="pyme-ui-nav" style="padding-bottom: 6px;">
+                <div class="pyme-ui-nav-brand" style="font-size: 0.65rem;">
+                  <span></span> PagaTodo PyME Portal
+                </div>
+                <div class="pyme-ui-nav-profile" style="font-size: 0.55rem;">
+                  <i class="ti ti-user-check"></i> Demo
+                </div>
+              </div>
+              
+              <div class="pyme-ui-grid" style="gap: 10px;">
+                <div class="pyme-ui-widget" style="padding: 10px;">
+                  <span class="widget-title-spec" style="font-size: 0.5rem; margin-bottom: 2px;">Balance Consolidado</span>
+                  <div class="widget-value-spec" style="font-size: 1.25rem; margin-bottom: 4px;">$ 284,500.00</div>
+                  <div class="chart-svg-container" style="height: 40px;">
+                    <svg viewBox="0 0 100 40" style="width: 100%; height: 100%;">
+                      <path class="chart-path" d="M 0 35 Q 20 10 40 25 T 80 5 T 100 10" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="pyme-ui-widget" style="padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <div>
+                    <span class="widget-title-spec" style="font-size: 0.5rem; margin-bottom: 2px;">Dispersión de Nómina</span>
+                    <div class="pyme-ui-list" style="gap: 4px; margin-top: 4px;">
+                      <div class="pyme-ui-item" style="padding: 4px; font-size: 0.55rem;">
+                        <span>Nómina</span>
+                        <strong>-$42k</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-laptop-base">
+            <div class="hero-laptop-notch"></div>
+          </div>
+        </div>
+        <div class="hero-rock-base"></div>
+      </div>
+    </header>
+
+    <!-- 1. ROLE & CONTRIBUTIONS SECTION -->
+    <section class="behance-section" style="background: #070512;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">01</span>
+          <h2 class="sec-title">Mi Rol en el Proyecto</h2>
+          <span class="sec-subtitle">My contribution</span>
+        </div>
+        <div>
+          <div class="role-grid">
+            
+            <div class="role-card">
+              <div class="role-card-icon"><i class="ti ti-users"></i></div>
+              <h5 class="role-card-title">UX Research</h5>
+              <p class="role-card-text">Entrevistas con dueños de comercios y perfiles empresariales para estructurar la segmentación y delimitar flujos específicos para PyMEs, SOFOMes y Banca Personal.</p>
+            </div>
+
+            <div class="role-card">
+              <div class="role-card-icon"><i class="ti ti-layout-dashboard"></i></div>
+              <h5 class="role-card-title">UI Design</h5>
+              <p class="role-card-text">Diseño de pantallas web responsivas y nativas móviles de alta fidelidad, asegurando una estética moderna, limpia y de confianza bancaria tradicional.</p>
+            </div>
+
+            <div class="role-card">
+              <div class="role-card-icon"><i class="ti ti-components"></i></div>
+              <h5 class="role-card-title">Design System</h5>
+              <p class="role-card-text">Creación del sistema de componentes compartidos (tarjetas, botones, inputs) que cambian dinámicamente de apariencia según el tipo de cuenta cargada.</p>
+            </div>
+
+          </div>
+          <div class="tags-container" style="justify-content: flex-start; margin-top: 40px; max-width: 100%;">
+            <span class="tag-badge">UX Research</span>
+            <span class="tag-badge">UI Design</span>
+            <span class="tag-badge">Design System</span>
+            <span class="tag-badge">Figma</span>
+            <span class="tag-badge">Fintech · Banca</span>
+            <span class="tag-badge">Web · App</span>
+            <span class="tag-badge">CDMX</span>
+            <span class="tag-badge">PyMEs · SOFOMes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SUMMARY & STATS SECTION -->
+    <section class="behance-section">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">02</span>
+          <h2 class="sec-title">La Estrategia UX/UI Multicapa</h2>
+          <span class="sec-subtitle">Overview & stats</span>
+        </div>
+        <div>
+          <p class="summary-p">El producto opera en el mercado de la CDMX. Nuestro objetivo fue integrar tres perfiles de usuario completamente diferentes (PyMEs, SOFOMes y Banca Personal) en una experiencia unificada que combine la rigurosidad financiera con una navegación moderna y fluida.</p>
+          
+          <div class="stats-card-grid">
+            <div class="stats-card">
+              <div class="stats-num">2</div>
+              <div class="stats-lbl">plataformas diseñadas</div>
+            </div>
+            <div class="stats-card">
+              <div class="stats-num">3</div>
+              <div class="stats-lbl">perfiles de usuario</div>
+            </div>
+            <div class="stats-card">
+              <div class="stats-num">1</div>
+              <div class="stats-lbl">sistema unificado</div>
+            </div>
+            <div class="stats-card">
+              <div class="stats-num">CDMX</div>
+              <div class="stats-lbl">mercado de operación</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CHALLENGE & SOLUTION CARD LAYOUT -->
+    <section class="behance-section" style="background: #080512;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">03</span>
+          <h2 class="sec-title">Estrategia del Producto</h2>
+          <span class="sec-subtitle">Análisis del desafío</span>
+        </div>
+        <div>
+          <div class="challenge-solution-container">
+            <!-- CHALLENGE CARD -->
+            <div class="cs-card cs-challenge">
+              <div class="cs-header">
+                <div class="cs-icon"><i class="ti ti-alert-triangle"></i></div>
+                <h4 style="font-family: var(--font-title); font-size: 1.25rem;">El desafío</h4>
+              </div>
+              <div class="cs-list">
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Diseñar una sola plataforma que funcionara de forma relevante para tres perfiles muy distintos: PyMEs, SOFOMes y usuarios de banca personal.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Cada perfil tenía necesidades, flujos y niveles de complejidad financiera completamente diferentes entre sí.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">La experiencia debía sentirse personalizada para cada tipo de usuario sin fragmentar el producto ni duplicar el trabajo de diseño.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Combinar la rigurosidad visual de una institución financiera con una interfaz accesible y fácil de usar para el usuario promedio.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SOLUTION CARD -->
+            <div class="cs-card cs-solution">
+              <div class="cs-header">
+                <div class="cs-icon"><i class="ti ti-circle-check"></i></div>
+                <h4 style="font-family: var(--font-title); font-size: 1.25rem;">Lo que se logró</h4>
+              </div>
+              <div class="cs-list">
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Diseño de web y app móvil con experiencias adaptadas por perfil, mostrando módulos, dashboards y flujos relevantes según el tipo de cuenta.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Un solo sistema de diseño que soporta los 3 perfiles de usuario, manteniendo coherencia visual y reduciendo complejidad técnica.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Interfaz con apariencia de banca seria e institucional pero con UX simplificada, amigable e intuitiva para todo tipo de usuario.</p>
+                </div>
+                <div class="cs-item">
+                  <div class="cs-item-bullet"></div>
+                  <p class="cs-item-text">Flujos diferenciados por perfil: crédito y nómina para PyMEs, gestión de cartera para SOFOMes, y pagos cotidianos para banca personal.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PROFILE ARCHITECTURE SEGMENTATION -->
+    <section class="behance-section">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">04</span>
+          <h2 class="sec-title">Perfiles Diseñados</h2>
+          <span class="sec-subtitle">User architecture</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; color: var(--color-text-secondary); margin-bottom: 40px; font-weight: 300;">La arquitectura de información se divide en tres interfaces independientes, alimentadas por un único Design System unificado.</p>
+          
+          <div class="profiles-grid">
+            <!-- PyMEs -->
+            <div class="profile-card profile-card-pymes">
+              <span class="profile-badge profile-badge-pyme">Perfil PyMEs</span>
+              <h4>PyMEs</h4>
+              <p>Módulos de crédito empresarial express, dispersión masiva de nómina para empleados, pagos automatizados a proveedores clave y monitoreo continuo del flujo de caja del negocio.</p>
+            </div>
+
+            <!-- SOFOMes -->
+            <div class="profile-card profile-card-sofomes">
+              <span class="profile-badge profile-badge-sofom">Perfil SOFOMes</span>
+              <h4>SOFOMes</h4>
+              <p>Gestión avanzada de carteras de crédito vigentes y vencidas, herramientas digitales de originación crediticia, seguimiento automatizado de cobranzas y reportes regulatorios ante la CNBV.</p>
+            </div>
+
+            <!-- Banca Personal -->
+            <div class="profile-card profile-card-personal">
+              <span class="profile-badge profile-badge-personal">Banca Personal</span>
+              <h4>Banca Personal</h4>
+              <p>Pagos cotidianos de servicios públicos y privados, transferencias SPEI seguras instantáneas, alcancías digitales para metas de ahorro y gráficos de control de gastos cotidianos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SPECIMEN DESIGN IDENTITY -->
+    <section class="behance-section" style="background: #040208;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">05</span>
+          <h2 class="sec-title">Identidad Visual & Color</h2>
+          <span class="sec-subtitle">Color specimen</span>
+        </div>
+        <div>
+          <div class="brand-grid">
+            <!-- Typo spec -->
+            <div class="typo-showcase">
+              <div class="specimen-header">
+                <span>TYPOGRAPHIC SPECIMEN</span>
+                <span>GOTHAM FONT FAMILY</span>
+              </div>
+              <h3 class="typo-specimen-large" style="color: var(--color-accent); font-family: 'Gotham', 'Montserrat', sans-serif;">Aa</h3>
+              <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 24px; font-weight: 300; line-height: 1.6;">Gotham aporta un peso sobrio, honesto y de gran presencia, ideal para una Fintech bancaria que busca transmitir confianza y modernidad.</p>
+              <div class="font-info-row">
+                <div class="font-info-box">
+                  <h5>Primary Brand Color</h5>
+                  <p style="color: var(--color-primary);">Royal Purple #6B3CDC</p>
+                </div>
+                <div class="font-info-box">
+                  <h5>Accent Color</h5>
+                  <p style="color: var(--color-accent);">Banco Gold #E5A93C</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- UI Guidelines and Color cards -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <p style="font-size: 0.95rem; color: var(--color-text-secondary);">El lenguaje gráfico de Banco PagaTodo utiliza el contraste de violetas serios con toques de oro y verde brillante para simbolizar crecimiento y solidez financiera.</p>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="background: var(--color-primary); height: 100px; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: flex-end; font-size: 0.75rem; font-weight: bold; color: #fff;">
+                  <span>Royal Purple</span>
+                  <span style="font-family: var(--font-mono); opacity: 0.8;">#6B3CDC</span>
+                </div>
+                <div style="background: var(--color-accent); height: 100px; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: flex-end; font-size: 0.75rem; font-weight: bold; color: #000;">
+                  <span>Banco Gold</span>
+                  <span style="font-family: var(--font-mono); opacity: 0.8;">#E5A93C</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. HIGH FIDELITY CSS PYME WEB PORTAL SHOWN IN MACBOOK -->
+    <section class="macbook-section">
+      <div class="split-layout" style="margin-bottom: 60px; text-align: left;">
+        <div>
+          <span class="sec-number">06</span>
+          <h2 class="sec-title">Plataforma Web PyME</h2>
+          <span class="sec-subtitle">Pyme Dashboard spec</span>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.15rem;">El panel consolidado de la banca empresarial está pensado para ejecutivos financieros que requieren controlar comisiones, dispersar nóminas y registrar balances en tiempo real.</p>
+        </div>
+      </div>
+
+      <div class="macbook-frame">
+        <div class="macbook-screen">
+          
+          <!-- HIGH-FI VIRTUAL WEB INTERFACE -->
+          <div class="pyme-ui-specimen">
+            <div class="pyme-ui-nav">
+              <div class="pyme-ui-nav-brand">
+                <span></span> PagaTodo PyME Portal
+              </div>
+              <div class="pyme-ui-nav-profile">
+                <i class="ti ti-user-check"></i> Bernardo Flores
+              </div>
+            </div>
+            
+            <div class="pyme-ui-grid">
+              <!-- Left Big Graph widget -->
+              <div class="pyme-ui-widget">
+                <span class="widget-title-spec">Balance Consolidado & Flujo Neto</span>
+                <div class="widget-value-spec">$ 284,500.00</div>
+                <div class="chart-svg-container">
+                  <svg viewBox="0 0 100 40" style="width: 100%; height: 100%;">
+                    <path class="chart-path" d="M 0 35 Q 20 10 40 25 T 80 5 T 100 10" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Right list widget -->
+              <div class="pyme-ui-widget" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <span class="widget-title-spec">Dispersión de Nómina</span>
+                  <div class="pyme-ui-list">
+                    <div class="pyme-ui-item">
+                      <span>Nómina Quincenal</span>
+                      <strong>-$42,000</strong>
+                    </div>
+                    <div class="pyme-ui-item" style="border-left-color: var(--color-primary);">
+                      <span>Impuestos SAT</span>
+                      <strong>-$12,400</strong>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size: 0.65rem; color: var(--color-success); font-family: var(--font-mono); margin-top: 10px;">
+                  <i class="ti ti-clock"></i> Último cálculo: Hace 3 mins
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="macbook-base">
+          <div class="macbook-notch"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. MOBILE PLATFORM SHOWCASE (CSS APP SCREENS) -->
+    <section class="behance-section" style="background: #030106;">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">07</span>
+          <h2 class="sec-title">Banca Móvil Personal</h2>
+          <span class="sec-subtitle">Mobile App design</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; color: var(--color-text-secondary); margin-bottom: 20px; font-weight: 300;">El diseño de la aplicación móvil está centrado en la inmediatez: transferencias SPEI directas, bloqueo de seguridad con un toque y acceso rápido a tarjetas digitales.</p>
+          
+          <div class="mobile-showcase-grid">
+            
+            <!-- Screen 1: Dashboard Personal -->
+            <div class="phone-mockup-wrap">
+              <div class="phone-mockup-body">
+                <div class="phone-ui-status-bar">
+                  <span>9:41</span>
+                  <span><i class="ti ti-wifi"></i> 100%</span>
+                </div>
+                <div class="phone-ui-card">
+                  <div>
+                    <span style="font-size: 0.55rem; color: var(--color-accent); font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">SALDO DISPONIBLE</span>
+                    <div class="phone-ui-card-balance">$ 24,150.00</div>
+                  </div>
+                  <div style="font-size: 0.6rem; opacity: 0.8;">•••• 9823</div>
+                </div>
+                <div class="phone-quick-actions">
+                  <div class="phone-action-btn-spec"><i class="ti ti-send"></i><br>Enviar</div>
+                  <div class="phone-action-btn-spec"><i class="ti ti-receipt"></i><br>Pagar</div>
+                  <div class="phone-action-btn-spec"><i class="ti ti-device-mobile"></i><br>Recarga</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); flex: 1; border-radius: 12px; padding: 12px; font-size: 0.65rem;">
+                  <span style="font-weight: bold; margin-bottom: 8px; display: block;">Últimos Movimientos</span>
+                  <div style="display:flex; justify-content:space-between; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.03);">
+                    <span>Supermercado</span>
+                    <strong>-$850</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; color: var(--color-success);">
+                    <span>Transferencia SPEI</span>
+                    <strong>+$3,400</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 2: Card Control -->
+            <div class="phone-mockup-wrap">
+              <div class="phone-mockup-body" style="border-color: rgba(107, 60, 220, 0.4);">
+                <div class="phone-ui-status-bar">
+                  <span>9:41</span>
+                  <span><i class="ti ti-wifi"></i> 100%</span>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(229,169,60,0.2) 0%, rgba(107, 60, 220, 0.2) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; height: 140px;">
+                  <div style="display:flex; justify-content:space-between; font-size:0.65rem; font-weight:bold; color: var(--color-accent);">
+                    <span>Banco PagaTodo</span>
+                    <span>DEBIT</span>
+                  </div>
+                  <div>
+                    <span style="font-family: var(--font-title); font-size: 0.95rem; font-weight: 600; display: block; letter-spacing: 1px;">•••• •••• •••• 9823</span>
+                    <span style="font-size: 0.5rem; display: block; margin-top: 4px; opacity: 0.7;">BERNARDO FLORES</span>
+                  </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                  <div style="background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; font-size: 0.7rem;">
+                    <span>Bloquear Tarjeta</span>
+                    <span style="color: var(--color-accent);"><i class="ti ti-toggle-off" style="font-size: 1.25rem;"></i></span>
+                  </div>
+                  <div style="background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; font-size: 0.7rem;">
+                    <span>Límite de Retiro diario</span>
+                    <strong style="color: var(--color-accent); font-family: var(--font-mono);">$ 5,000</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 3: Savings Goals -->
+            <div class="phone-mockup-wrap">
+              <div class="phone-mockup-body">
+                <div class="phone-ui-status-bar">
+                  <span>9:41</span>
+                  <span><i class="ti ti-wifi"></i> 100%</span>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 16px; text-align: center;">
+                  <span class="widget-title-spec">Meta de Ahorro: Viaje</span>
+                  <div class="phone-ui-card-balance" style="color: var(--color-accent);">$ 12,800.00</div>
+                  <span style="font-size:0.55rem; color: var(--color-text-secondary);">DE UN TOTAL DE $20,000</span>
+                  
+                  <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; margin: 12px 0 4px; overflow: hidden;">
+                    <div style="width: 64%; height: 100%; background: var(--color-accent); border-radius: 3px; box-shadow: 0 0 8px var(--color-accent);"></div>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.55rem; color: var(--color-text-secondary);">
+                    <span>64% Completado</span>
+                    <span>$7,200 Restante</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. HIGH FIDELITY BLUEPRINT SPEC SHEET -->
+    <section class="behance-section">
+      <div class="split-layout">
+        <div class="section-header-sticky">
+          <span class="sec-number">08</span>
+          <h2 class="sec-title">Criterio y Anatomía de la App</h2>
+          <span class="sec-subtitle">Blueprint specs</span>
+        </div>
+        <div>
+          <div class="blueprint-spec-box">
+            <div class="blueprint-grid-overlay"></div>
+            <div class="blueprint-spec-grid">
+              
+              <!-- Blueprint Screen Specs -->
+              <div style="position: relative;">
+                <div class="spec-device-frame">
+                  <div class="phone-ui-status-bar">
+                    <span>9:41</span>
+                    <span><i class="ti ti-wifi"></i></span>
+                  </div>
+                  <div class="phone-ui-card" style="height: 100px; padding: 12px;">
+                    <div>
+                      <span style="font-size: 0.5rem; color: var(--color-accent); font-weight: bold;">SALDO DISPONIBLE</span>
+                      <div class="phone-ui-card-balance" style="font-size: 1.15rem;">$ 24,150.00</div>
+                    </div>
+                  </div>
+                  <div class="phone-quick-actions">
+                    <div class="phone-action-btn-spec"><i class="ti ti-send"></i></div>
+                    <div class="phone-action-btn-spec"><i class="ti ti-receipt"></i></div>
+                    <div class="phone-action-btn-spec"><i class="ti ti-device-mobile"></i></div>
+                  </div>
+                  
+                  <!-- Blueprint Layout Helper overlay -->
+                  <div class="spec-line line-v-center"></div>
+                  <div class="spec-line line-margin-left"></div>
+                  <div class="spec-line line-margin-right"></div>
+                  <div class="spec-note note-margin">16px Margin</div>
+                  <div class="spec-note note-tab-bar">Grid aligned items</div>
+                </div>
+              </div>
+
+              <!-- Technical Details list -->
+              <div class="spec-details-list">
+                <h4 style="font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 10px;">Especificaciones Técnicas</h4>
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 20px;">Diseñado sobre una estructura modular de componentes flexibles para permitir la personalización de la interfaz según el tipo de usuario sin duplicar recursos.</p>
+                
+                <div class="spec-detail-item">
+                  <h6>01 / Margen de Contenedor</h6>
+                  <p>Margen de 16px lateral simétrico para soportar una visualización segura en todo tipo de pantallas móviles de la CDMX.</p>
+                </div>
+                <div class="spec-detail-item">
+                  <h6>02 / Coherencia de Marca</h6>
+                  <p>El color morado actúa como base estructural mientras que el dorado resalta los balances y las metas logradas.</p>
+                </div>
+                <div class="spec-detail-item">
+                  <h6>03 / Toque y Accesibilidad</h6>
+                  <p>Botones de acción rápida con áreas generosas de interacción de 48px mínimos para evitar toques falsos en el transporte.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. CASE STUDY FOOTER -->
+    <footer class="behance-footer" style="padding: 80px 0; background: transparent; border-top: none;">
+      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-tertiary);">
+        BANCO PAGATODO — UX/UI CASE STUDY
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
