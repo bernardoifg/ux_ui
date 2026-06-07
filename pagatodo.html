@@ -2727,11 +2727,11 @@
       <div class="split-layout" style="margin-bottom: 50px;">
         <div>
           <span class="sec-number">10</span>
-          <h2 class="sec-title">Flujo de Operación QR CoDi</h2>
+          <h2 class="sec-title">Flujo de Relleno de Saldo Automatizado</h2>
           <span class="sec-subtitle">Ecosystem flow</span>
         </div>
         <div style="display: flex; align-items: flex-end;">
-          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">Implementamos un sistema ágil de cobros mediante códigos QR estándar (CoDi) y transferencias SPEI directas. El flujo minimiza la fricción y permite a los comercios cobrar en segundos desde cualquier dispositivo móvil.</p>
+          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">Diseñamos un flujo inteligente que permite a los usuarios automatizar el fondeo de su cuenta secundaria mediante domiciliación programada. Los usuarios pueden rellenar su saldo cada mes desde su banco principal para realizar sus pagos de servicios cotidianos sin comprometer sus datos bancarios o tarjetas principales.</p>
         </div>
       </div>
 
@@ -2743,50 +2743,50 @@
           <div class="flow-step">
             <div class="flow-step-num">01</div>
             <div class="flow-device-container">
-              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/1-TPV-Cobrar-Tarjeta-1.png" alt="CoDi Cobro 1" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Monto'">
+              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/1-Regla-mensual.png" alt="Regla Mensual Saldo" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Regla+Mensual'">
             </div>
-            <h5 class="flow-step-title">1. Monto de Cobro</h5>
-            <p class="flow-step-desc">El comercio captura la cantidad a cobrar y selecciona la opción de cobro digital QR.</p>
+            <h5 class="flow-step-title">1. Regla de Recarga</h5>
+            <p class="flow-step-desc">El usuario define la regla de recurrencia (mensual, semanal o por saldo mínimo) y el monto a recargar.</p>
           </div>
 
           <!-- Step 2 -->
           <div class="flow-step">
             <div class="flow-step-num">02</div>
             <div class="flow-device-container">
-              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/4-TPV-Tarjeta.png" alt="CoDi QR Generado" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=QR'">
+              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/2-Vincular-banco.png" alt="Vincular Cuenta de Origen" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Vincular+Banco'">
             </div>
-            <h5 class="flow-step-title">2. Código QR CoDi</h5>
-            <p class="flow-step-desc">La aplicación móvil genera al instante el código QR cifrado respaldado por Banxico.</p>
+            <h5 class="flow-step-title">2. Vincular Banco</h5>
+            <p class="flow-step-desc">Se ingresa la tarjeta de débito o CLABE del banco de origen (cuenta principal) que fondeará el saldo.</p>
           </div>
 
           <!-- Step 3 -->
           <div class="flow-step">
             <div class="flow-step-num">03</div>
             <div class="flow-device-container">
-              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/5-TPV-PIN.png" alt="Escaneo QR" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Escaneo'">
+              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/3-Firma-contrato.png" alt="Firma Contrato Domiciliacion" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Contrato'">
             </div>
-            <h5 class="flow-step-title">3. Escaneo del Cliente</h5>
-            <p class="flow-step-desc">El cliente escanea el QR desde su propia aplicación móvil de Banca Personal.</p>
+            <h5 class="flow-step-title">3. Firma del Contrato</h5>
+            <p class="flow-step-desc">El cliente firma digitalmente el mandato de domiciliación autorizando los cargos automáticos recurrentes.</p>
           </div>
 
           <!-- Step 4 -->
           <div class="flow-step">
             <div class="flow-step-num">04</div>
             <div class="flow-device-container">
-              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/7-Aceptado.png" alt="Autorizacion SPEI" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Autorizado'">
+              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/4-Verificar-datos.png" alt="Verificar Cuenta" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Verificar'">
             </div>
-            <h5 class="flow-step-title">4. Autorización SPEI</h5>
-            <p class="flow-step-desc">El cliente confirma el monto y autoriza el cargo seguro mediante su NIP o huella digital.</p>
+            <h5 class="flow-step-title">4. Verificar Datos</h5>
+            <p class="flow-step-desc">El sistema valida los datos de la cuenta de origen y muestra un resumen con los límites y las fechas de ejecución.</p>
           </div>
 
           <!-- Step 5 -->
           <div class="flow-step">
             <div class="flow-step-num">05</div>
             <div class="flow-device-container">
-              <img src="screen-plataformas-yapayments/ya-pos/2-cobro-tarjeta/9-Cliente-Ticket.png" alt="Ticket Digital" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Ticket'">
+              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/5-Recarga-exitosa.png" alt="Recarga Saldo Programada" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Listo'">
             </div>
-            <h5 class="flow-step-title">5. Cobro Completado</h5>
-            <p class="flow-step-desc">Ambos usuarios reciben la notificación en tiempo real de los fondos abonados vía SPEI.</p>
+            <h5 class="flow-step-title">5. Recarga Programada</h5>
+            <p class="flow-step-desc">El saldo automatizado queda activo. La cuenta principal queda segura frente a riesgos en pagos de servicios.</p>
           </div>
 
         </div>
