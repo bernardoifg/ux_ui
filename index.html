@@ -353,9 +353,15 @@
       bottom: 15px;
       width: 15.5%;
       max-width: 170px;
+      aspect-ratio: 9/19.5;
       z-index: 3;
       filter: drop-shadow(-15px 20px 30px rgba(0, 0, 0, 0.8));
       transform: rotate(-6deg) translateZ(0);
+      background: #020503;
+      border: 6px solid #1c202a;
+      border-radius: 20px;
+      outline: 1px solid rgba(255, 255, 255, 0.15);
+      overflow: hidden;
     }
 
     .device-phone:hover {
@@ -365,8 +371,10 @@
 
     .device-phone img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
+      border-radius: 14px;
     }
 
     /* POS Terminal (Right Floating, Front Layer overlapping Laptop) */
@@ -1011,10 +1019,11 @@
     /* Custom CSS Mockup: Floating Phone (iPhone) */
     .mock-phone-floating {
       width: 15.5%;
-      height: auto;
-      background: transparent;
-      border-radius: 0;
-      border: none;
+      aspect-ratio: 9/19.5;
+      background: #020503;
+      border: 6px solid #1c202a;
+      border-radius: 20px;
+      outline: 1px solid rgba(255, 255, 255, 0.15);
       position: absolute;
       right: 8.2%;
       bottom: 2.8%;
@@ -1022,7 +1031,7 @@
       box-shadow: none;
       filter: drop-shadow(15px 20px 25px rgba(0, 0, 0, 0.8));
       transform: rotate(5deg) translateZ(0);
-      overflow: visible;
+      overflow: hidden;
       transition: all 0.4s;
     }
 
@@ -1034,17 +1043,20 @@
     .mock-phone-floating img,
     .mock-pos-floating img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
+      border-radius: 14px;
     }
 
-    /* Floating POS Terminal */
+    /* Floating POS Terminal (Re-styled as second iPhone for PagaTodo) */
     .mock-pos-floating {
       width: 26.4%;
-      height: auto;
-      background: transparent;
-      border: none;
-      border-radius: 0;
+      aspect-ratio: 9/19.5;
+      background: #020503;
+      border: 6px solid #1c202a;
+      border-radius: 20px;
+      outline: 1px solid rgba(255, 255, 255, 0.15);
       position: absolute;
       right: 17.2%;
       top: 7.1%;
@@ -1053,7 +1065,7 @@
       filter: drop-shadow(-15px 20px 25px rgba(0, 0, 0, 0.7));
       transform: rotate(-6deg) translateZ(0);
       padding: 0;
-      overflow: visible;
+      overflow: hidden;
       transition: all 0.4s;
     }
 
