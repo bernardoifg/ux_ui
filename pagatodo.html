@@ -2202,6 +2202,15 @@
         z-index: 1;
         filter: blur(35px);
       }
+      .anatomy-bg-glow {
+        position: absolute;
+        width: 900px;
+        height: 900px;
+        background: radial-gradient(circle, rgba(0, 176, 80, 0.2) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+        filter: blur(50px);
+      }
       .anatomy-container {
         display: flex;
         flex-direction: column;
@@ -2416,6 +2425,7 @@
 
        .isometric-container-outer {
         position: relative;
+        z-index: 2;
         width: 100%;
         height: 880px;
         margin-top: 60px;
@@ -2617,6 +2627,13 @@
     </style>
 
     <section class="anatomy-section">
+      <!-- Ambient Background Glows distributed throughout the very long section -->
+      <div class="anatomy-bg-glow" style="top: 15%; left: -250px; background: radial-gradient(circle, rgba(0, 176, 80, 0.22) 0%, transparent 70%);"></div>
+      <div class="anatomy-bg-glow" style="top: 35%; right: -250px; background: radial-gradient(circle, rgba(0, 255, 102, 0.16) 0%, transparent 70%);"></div>
+      <div class="anatomy-bg-glow" style="top: 55%; left: -250px; background: radial-gradient(circle, rgba(0, 176, 80, 0.18) 0%, transparent 70%);"></div>
+      <div class="anatomy-bg-glow" style="top: 75%; right: -250px; background: radial-gradient(circle, rgba(0, 255, 102, 0.2) 0%, transparent 70%);"></div>
+      <div class="anatomy-bg-glow" style="top: 90%; left: 10%; background: radial-gradient(circle, rgba(0, 176, 80, 0.15) 0%, transparent 70%);"></div>
+
       <div class="split-layout" style="margin-bottom: 80px;">
         <div>
           <span class="sec-number">05</span>
