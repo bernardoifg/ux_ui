@@ -560,6 +560,17 @@
       .icon-grid-box {
         padding: 12px 6px !important;
       }
+      .icon-showcase-grid-3d {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+      }
+      .icon-grid-box-3d {
+        padding: 12px 8px !important;
+      }
+      .icon-grid-box-3d img {
+        width: 48px !important;
+        height: 48px !important;
+      }
       .challenge-solution-container {
         margin-top: 25px !important;
         gap: 20px !important;
@@ -943,6 +954,37 @@
       box-shadow: 
         0 10px 20px rgba(0, 0, 0, 0.5),
         0 0 15px rgba(0, 255, 102, 0.1);
+    }
+
+    .icon-showcase-grid-3d {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+
+    .icon-grid-box-3d {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 15px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .icon-grid-box-3d:hover {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-color: rgba(0, 255, 102, 0.3) !important;
+      transform: translateY(-5px);
+      box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 255, 102, 0.15);
     }
 
     .icon-grid-box i {
@@ -1547,6 +1589,10 @@
       .brand-grid, .summary-grid, .blueprint-spec-grid, .challenge-solution-container {
         grid-template-columns: 1fr;
         gap: 40px;
+      }
+      .icon-showcase-grid-3d {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
       }
       .composite-container {
         width: 100% !important;
@@ -2177,17 +2223,51 @@
                   <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Wallet.svg</span>
                 </div>
                 <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
-                  <img src="Digitales.svg" alt="Digitales" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
-                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Digitales.svg</span>
+                  <img src="huella.svg" alt="Huella" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">huella.svg</span>
                 </div>
                 <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
                   <img src="Banco.svg" alt="Banco" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
                   <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Banco.svg</span>
                 </div>
                 <div class="icon-grid-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
-                  <img src="seguridad.svg" alt="Seguridad" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
-                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">seguridad.svg</span>
+                  <img src="faceid.svg" alt="Face ID" style="width: 32px; height: 32px; margin-bottom: 12px; display: block;">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">faceid.svg</span>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Iconography Showcase -->
+          <div style="margin-top: 50px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 40px; position: relative; z-index: 2;">
+            <h4 style="font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; color: #ffffff;">Ilustración e Iconografía 3D Integrada</h4>
+            <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 30px; line-height: 1.6; max-width: 800px;">
+              Como parte del esfuerzo por modernizar la experiencia visual de Banco PagaTodo, diseñamos y renderizamos un set exclusivo de iconos 3D. Estos elementos tridimensionales se integran en puntos de contacto clave de la interfaz —como estados de éxito, categorías de transacciones y pantallas de onboarding—, rompiendo la bidimensionalidad tradicional y aportando un carácter tecnológico, amigable y sumamente premium al producto digital.
+            </p>
+            <div class="icon-showcase-grid-3d">
+              <div class="icon-grid-box-3d">
+                <img src="icono-bpt/3d/banco.png" alt="Banco 3D" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; display: block;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Banco</span>
+              </div>
+              <div class="icon-grid-box-3d">
+                <img src="icono-bpt/3d/tarjeta 5.png" alt="Tarjeta 3D" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; display: block;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Tarjeta</span>
+              </div>
+              <div class="icon-grid-box-3d">
+                <img src="icono-bpt/3d/efectivo 1.png" alt="Efectivo 3D" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; display: block;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Efectivo</span>
+              </div>
+              <div class="icon-grid-box-3d">
+                <img src="icono-bpt/3d/codi 1.png" alt="CoDi 3D" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; display: block;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">CoDi</span>
+              </div>
+              <div class="icon-grid-box-3d">
+                <img src="icono-bpt/3d/movimientos 1.png" alt="Movimientos 3D" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; display: block;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Movimientos</span>
+              </div>
+              <div class="icon-grid-box-3d">
+                <img src="icono-bpt/3d/notificaciones 1.png" alt="Notificaciones 3D" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; display: block;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-secondary);">Avisos</span>
               </div>
             </div>
           </div>
