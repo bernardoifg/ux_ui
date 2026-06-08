@@ -2180,24 +2180,26 @@
       .anatomy-section::before {
         content: '';
         position: absolute;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(29, 171, 135, 0.08) 0%, transparent 70%);
-        top: 20%;
-        left: -200px;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(0, 176, 80, 0.22) 0%, rgba(0, 255, 102, 0.1) 40%, transparent 70%);
+        top: 15%;
+        left: -300px;
         pointer-events: none;
         z-index: 1;
+        filter: blur(35px);
       }
       .anatomy-section::after {
         content: '';
         position: absolute;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(29, 171, 135, 0.08) 0%, transparent 70%);
-        bottom: 10%;
-        right: -200px;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(0, 255, 102, 0.2) 0%, rgba(0, 176, 80, 0.08) 40%, transparent 70%);
+        bottom: 15%;
+        right: -300px;
         pointer-events: none;
         z-index: 1;
+        filter: blur(35px);
       }
       .anatomy-container {
         display: flex;
