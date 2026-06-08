@@ -2404,11 +2404,11 @@
         height: auto;
       }
       
-      .zoom-balance, .zoom-wallet, .zoom-finances {
+      .zoom-balance, .zoom-wallet, .zoom-finances, .zoom-topup {
         height: auto !important;
       }
       
-      .zoom-balance img, .zoom-wallet img, .zoom-finances img {
+      .zoom-balance img, .zoom-wallet img, .zoom-finances img, .zoom-topup img {
         position: static !important;
         width: 100% !important;
         height: auto !important;
@@ -2821,7 +2821,7 @@
           <div class="anatomy-visual right-visual">
             <div class="zoom-card-wrapper">
               <div class="zoom-card zoom-topup">
-                <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/00-Modalidad-recarga.png" alt="Zoom Relleno Automatizado">
+                <img src="pantallas-app/card.png" alt="Zoom Relleno Automatizado">
               </div>
             </div>
             <div class="anatomy-pointer-line to-left">
@@ -2922,7 +2922,7 @@
       <div class="behance-section-header-wide">
         <div class="split-layout">
           <div class="section-header-sticky">
-            <span class="sec-number">08</span>
+            <span class="sec-number">07</span>
             <h2 class="sec-title">Interfaz de la Plataforma Web</h2>
             <span class="sec-subtitle">Web UI Showcase</span>
           </div>
@@ -2961,96 +2961,6 @@
             <img src="screen-plataformas-yapayments/ya-web/1-home/1-Home-PREMIUM.png" alt="Home Premium Panel" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Home+Premium'">
           </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. SMART POS TERMINAL SEQUENCE -->
-    <section class="behance-section">
-      <div class="split-layout" style="margin-bottom: 50px;">
-        <div>
-          <span class="sec-number">10</span>
-          <h2 class="sec-title">Flujo de Relleno de Saldo Automatizado</h2>
-          <span class="sec-subtitle">Ecosystem flow</span>
-        </div>
-        <div style="display: flex; align-items: flex-end;">
-          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">Diseñamos un flujo inteligente que permite a los usuarios automatizar el fondeo de su cuenta secundaria mediante domiciliación programada. Los usuarios pueden rellenar su saldo cada mes desde su banco principal para realizar sus pagos de servicios cotidianos sin comprometer sus datos bancarios o tarjetas principales.</p>
-        </div>
-      </div>
-
-      <!-- Timeline step sequence wrapper with horizontal scroll navigation -->
-      <div class="flow-timeline-outer">
-        <div class="flow-timeline" style="grid-template-columns: repeat(6, 1fr); gap: 40px 16px;">
-          
-          <!-- Step 1 -->
-          <div class="flow-step">
-            <div class="flow-step-num">01</div>
-            <div class="flow-device-container">
-              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/0-Resumen-servicios.png" alt="Gasto Promedio Mensual" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Gasto+Mensual'">
-            </div>
-            <h5 class="flow-step-title">1. Calcular Gasto Promedio</h5>
-            <p class="flow-step-desc">La app calcula automáticamente la suma mensual de tus servicios recurrentes (como luz, agua, streaming o tags) para sugerirte un presupuesto exacto.</p>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="flow-step">
-            <div class="flow-step-num">02</div>
-            <div class="flow-device-container">
-              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/00-Modalidad-recarga.png" alt="Modalidad de Recarga" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Modalidad'">
-            </div>
-            <h5 class="flow-step-title">2. Seleccionar Modalidad</h5>
-            <p class="flow-step-desc">El usuario elige cómo desea realizar el fondeo programado de su cuenta: en una fecha específica del mes o automáticamente cuando su saldo sea mínimo.</p>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="flow-step">
-            <div class="flow-step-num">03</div>
-            <div class="flow-device-container">
-              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/2-Vincular-banco.png" alt="Vincular Cuenta de Origen" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Vincular+Banco'">
-            </div>
-            <h5 class="flow-step-title">3. Vincular Banco</h5>
-            <p class="flow-step-desc">Se ingresa la tarjeta de débito o CLABE del banco de origen (cuenta principal) que fondeará el saldo.</p>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="flow-step">
-            <div class="flow-step-num">04</div>
-            <div class="flow-device-container">
-              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/3-Firma-contrato.png" alt="Firma Contrato Domiciliacion" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Contrato'">
-            </div>
-            <h5 class="flow-step-title">4. Firma del Contrato</h5>
-            <p class="flow-step-desc">El cliente firma digitalmente el mandato de domiciliación autorizando los cargos automáticos recurrentes.</p>
-          </div>
-
-          <!-- Step 5 -->
-          <div class="flow-step">
-            <div class="flow-step-num">05</div>
-            <div class="flow-device-container">
-              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/4-Verificar-datos.png" alt="Verificar Cuenta" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Verificar'">
-            </div>
-            <h5 class="flow-step-title">5. Verificar Datos</h5>
-            <p class="flow-step-desc">El sistema valida los datos de la cuenta de origen y muestra un resumen con los límites y las fechas de ejecución.</p>
-          </div>
-
-          <!-- Step 6 -->
-          <div class="flow-step">
-            <div class="flow-step-num">06</div>
-            <div class="flow-device-container">
-              <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/5-Recarga-exitosa.png" alt="Recarga Saldo Programada" onerror="this.src='https://placehold.co/720x1440/000000/ffffff?text=Listo'">
-            </div>
-            <h5 class="flow-step-title">6. Recarga Programada</h5>
-            <p class="flow-step-desc">El saldo automatizado queda activo. La cuenta principal queda segura frente a riesgos en pagos de servicios.</p>
-          </div>
-
-        </div>
-
-        <div class="flow-carousel-controls">
-          <button class="flow-nav-btn flow-prev-btn" aria-label="Previous step">
-            <i class="ti ti-chevron-left"></i>
-          </button>
-          <button class="flow-nav-btn flow-next-btn" aria-label="Next step">
-            <i class="ti ti-chevron-right"></i>
-          </button>
         </div>
       </div>
     </section>
