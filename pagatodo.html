@@ -2284,102 +2284,338 @@
       </div>
     </section>
 
-    <!-- 5. COMPOSITE ECOLOGY DEVICE SHOWCASE (3D COLLAGE) -->
-    <section class="composite-section">
-      <div class="split-layout" style="margin-bottom: 60px;">
+    <!-- 6. ANATOMÍA DE LA INTERFAZ -->
+    <style>
+      .anatomy-section {
+        background: #020503;
+        padding: 120px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .anatomy-section::before {
+        content: '';
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(29, 171, 135, 0.08) 0%, transparent 70%);
+        top: 20%;
+        left: -200px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .anatomy-section::after {
+        content: '';
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(29, 171, 135, 0.08) 0%, transparent 70%);
+        bottom: 10%;
+        right: -200px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .anatomy-container {
+        display: flex;
+        flex-direction: column;
+        gap: 120px;
+        margin-top: 60px;
+        position: relative;
+        z-index: 2;
+      }
+      .anatomy-row {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .anatomy-row.reverse-row {
+        grid-template-columns: 0.8fr 1.2fr;
+      }
+      .anatomy-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        gap: 40px;
+        width: 100%;
+      }
+      .phone-wrapper {
+        position: relative;
+        perspective: 1000px;
+      }
+      .phone-frame {
+        width: 240px;
+        height: 490px;
+        border-radius: 40px;
+        border: 12px solid #101216;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1);
+        overflow: hidden;
+        background: #000;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .phone-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .anatomy-row:hover .phone-frame {
+        transform: translateY(-5px) rotateY(2deg);
+      }
+      .zoom-card-wrapper {
+        position: relative;
+      }
+      .zoom-card {
+        width: 280px;
+        height: 180px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(20, 25, 22, 0.7);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(29, 171, 135, 0.15);
+        overflow: hidden;
+        position: relative;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .zoom-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        box-shadow: inset 0 0 0 1px rgba(29, 171, 135, 0.3);
+        border-radius: 20px;
+        pointer-events: none;
+      }
+      .anatomy-row:hover .zoom-card {
+        transform: translateY(-8px) scale(1.03);
+        border-color: var(--color-primary);
+        box-shadow: 0 30px 50px rgba(0,0,0,0.8), 0 0 30px rgba(29, 171, 135, 0.3);
+      }
+      
+      .zoom-card img {
+        position: absolute;
+        width: 100%;
+        height: auto;
+      }
+      
+      .zoom-balance img {
+        width: 250%;
+        left: -75%;
+        top: -22%;
+      }
+      
+      .zoom-wallet img {
+        width: 220%;
+        left: -60%;
+        top: -15%;
+      }
+      
+      .zoom-rule img {
+        width: 220%;
+        left: -60%;
+        top: -24%;
+      }
+
+      .anatomy-pointer-line {
+        width: 120px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+        pointer-events: none;
+        opacity: 0.8;
+      }
+      .anatomy-pointer-line svg {
+        width: 100%;
+        height: 100%;
+      }
+      .anatomy-pointer-line svg path {
+        stroke: var(--color-primary);
+      }
+      .anatomy-pointer-line svg circle {
+        fill: var(--color-primary);
+      }
+
+      .anatomy-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .anatomy-badge {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--color-primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(29, 171, 135, 0.3);
+        padding: 4px 12px;
+        border-radius: 12px;
+        display: inline-block;
+        align-self: flex-start;
+        background: rgba(29, 171, 135, 0.05);
+      }
+      .anatomy-text h3 {
+        font-family: var(--font-title);
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+        line-height: 1.2;
+      }
+      .anatomy-text p {
+        color: var(--color-text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      @media (max-width: 1100px) {
+        .anatomy-section {
+          padding: 100px 40px;
+        }
+        .anatomy-pointer-line {
+          width: 60px;
+        }
+        .zoom-card {
+          width: 220px;
+          height: 150px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .anatomy-row, .anatomy-row.reverse-row {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .anatomy-row.reverse-row .anatomy-visual {
+          order: -1;
+        }
+        .anatomy-pointer-line {
+          display: none;
+        }
+        .anatomy-visual {
+          flex-direction: row;
+          gap: 20px;
+          justify-content: space-around;
+        }
+        .zoom-card {
+          width: 250px;
+          height: 160px;
+        }
+        .anatomy-container {
+          gap: 90px;
+        }
+        .anatomy-text h3 {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 550px) {
+        .anatomy-visual {
+          flex-direction: column;
+          align-items: center;
+          gap: 30px;
+        }
+        .phone-frame {
+          width: 200px;
+          height: 410px;
+        }
+        .zoom-card {
+          width: 260px;
+          height: 160px;
+        }
+      }
+    </style>
+
+    <section class="anatomy-section">
+      <div class="split-layout" style="margin-bottom: 80px;">
         <div>
           <span class="sec-number">06</span>
-          <h2 class="sec-title">El Ecosistema Conectado</h2>
-          <span class="sec-subtitle">Ecosystem overview</span>
+          <h2 class="sec-title">Anatomía de la Interfaz</h2>
+          <span class="sec-subtitle">App Interface Breakdown</span>
         </div>
         <div style="display: flex; align-items: flex-end;">
-          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">La potencia de Banco PagaTodo radica en la integración multicapa. Las operaciones iniciadas en la App móvil (ya sean pagos personales, dispersiones PyME o reportes SOFOM) se sincronizan instantáneamente con el portal administrativo Web.</p>
+          <p style="color: var(--color-text-secondary); max-width: 600px; font-size: 1.1rem;">
+            Diseñé la arquitectura de información de la aplicación móvil de Banco PagaTodo priorizando la legibilidad de balances complejos y la accesibilidad de las funciones críticas de negocio.
+          </p>
         </div>
       </div>
 
-      <div class="composite-container">
-        <!-- Connecting Technical Indicator Line 1 -->
-        <div class="indicator-line" style="width: 280px; transform: rotate(15deg); left: 350px; top: 120px;">
-          <span class="indicator-dot"></span>
-          <span class="indicator-label">SYNC FEED</span>
-        </div>
-
-        <!-- Connecting Technical Indicator Line 2 -->
-        <div class="indicator-line" style="width: 250px; transform: rotate(-25deg); right: 180px; bottom: 250px;">
-          <span class="indicator-label">NFC GATEWAY</span>
-          <span class="indicator-dot"></span>
-        </div>
-
-        <!-- Web Desktop (MacBook) -->
-        <div class="mock-laptop">
-          <div class="mock-laptop-screen">
-            <img src="screen-plataformas-yapayments/ya-web/3-gestion/1-conciliacion/1-gestionx-expandido.png" alt="Ecosistema Conciliación Web" onerror="this.src='https://placehold.co/1000x580/090e1a/ffffff?text=Conciliacion+Web+Dashboard'">
-          </div>
-          <div class="mock-laptop-base">
-            <div class="mock-laptop-notch"></div>
-          </div>
-        </div>
-
-        <!-- PyME App Mobile (iPhone) -->
-        <div class="mock-pos-floating" style="width: 17%; right: 5%; bottom: -10px;">
-          <img src="screen-plataformas-pagatodo/ya-app/3-home/Home-con-tarjeta.png" alt="Ecosistema PyME App" onerror="this.src='https://placehold.co/400x820/050c08/ffffff?text=PyME+App'">
-        </div>
-
-        <!-- Mobile App (iPhone) -->
-        <div class="mock-phone-floating">
-          <img src="screen-plataformas-pagatodo/ya-app/3-home/Home-con-tarjeta.png" alt="Ecosistema App Móvil" onerror="this.src='https://placehold.co/400x820/090e1a/ffffff?text=App+Home'">
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. HIGH FIDELITY BLUEPRINT SPEC SHEET -->
-    <section class="behance-section" style="background: #03050b; overflow: hidden;">
-      <div class="split-layout">
-        <div class="section-header-sticky">
-          <span class="sec-number">07</span>
-          <h2 class="sec-title">Criterio y Anatomía de la App</h2>
-          <span class="sec-subtitle">Blueprint specs</span>
-        </div>
-        <div style="position: relative;">
-          <!-- Localized section glow directly behind the blueprint layout box -->
-          <div style="position: absolute; width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(0, 255, 102, 0.35) 0%, rgba(0, 176, 80, 0.25) 45%, rgba(0, 110, 50, 0.1) 75%, transparent 100%); filter: blur(60px); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 1;"></div>
-          
-          <div class="blueprint-spec-box" style="position: relative; z-index: 2;">
-            <div class="blueprint-grid-overlay"></div>
-            <div class="blueprint-spec-grid">
-              
-              <!-- Blueprint Screen Specs -->
-              <div class="spec-device-frame">
-                  <img src="screen-plataformas-pagatodo/ya-app/8-wallet/Tarjeta.png" alt="Especificaciones de Diseño Wallet BPT" onerror="this.src='https://placehold.co/240x510/080c14/ffffff?text=Wallet+App'">
-                  <!-- Blueprint Layout Helper overlay -->
-                  <div class="spec-line line-v-center"></div>
-                  <div class="spec-line line-margin-left"></div>
-                  <div class="spec-line line-margin-right"></div>
-                  <div class="spec-note note-margin">CVV Dinámico</div>
-                  <div class="spec-note note-tab-bar">Tarjeta Bloqueable</div>
-                </div>
+      <div class="anatomy-container">
+        <!-- ROW 1: Home screen / Balance -->
+        <div class="anatomy-row">
+          <div class="anatomy-visual left-visual">
+            <div class="phone-wrapper">
+              <div class="phone-frame">
+                <img src="screen-plataformas-pagatodo/ya-app/3-home/Home-con-tarjeta.png" alt="Pantalla de Inicio Banco PagaTodo">
               </div>
-
-              <!-- Technical Details list -->
-              <div class="spec-details-list">
-                <h4 style="font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 10px;">Especificaciones de Seguridad</h4>
-                <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 20px;">El módulo de Wallet y Tarjeta Digital en Banco PagaTodo obedece a estrictas regulaciones de seguridad biométrica y control de fraude, diseñando elementos visuales intuitivos que protegen la información sensible.</p>
-                
-                <div class="spec-detail-item">
-                  <h6>01 / Seguridad Biométrica</h6>
-                  <p>Área de verificación por reconocimiento facial y digital configurada a un área táctil mínima de 64px para agilizar autorizaciones CNBV.</p>
-                </div>
-                <div class="spec-detail-item">
-                  <h6>02 / CVV Dinámico & Privacidad</h6>
-                  <p>Ocultamiento automático y generación temporal de claves dinámicas de 3 dígitos, protegiendo los datos en comercios en línea.</p>
-                </div>
-                <div class="spec-detail-item">
-                  <h6>03 / Control de Estado de Tarjeta</h6>
-                  <p>Interruptor de bloqueo temporal instantáneo con estados visuales contrastados para que el usuario congele su plástico en un toque.</p>
-                </div>
-              </div>
-
             </div>
+            <div class="anatomy-pointer-line to-right">
+              <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M 0 10 L 80 10 L 100 10" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="4,4"/><circle cx="0" cy="10" r="3" fill="var(--color-primary)"/><circle cx="100" cy="10" r="4" fill="var(--color-primary)"/></svg>
+            </div>
+            <div class="zoom-card-wrapper">
+              <div class="zoom-card zoom-balance">
+                <img src="screen-plataformas-pagatodo/ya-app/3-home/Home-con-tarjeta.png" alt="Zoom Balance">
+              </div>
+            </div>
+          </div>
+          <div class="anatomy-text">
+            <div class="anatomy-badge">Dashboard Principal</div>
+            <h3>Balance Consolidado & Acciones</h3>
+            <p>Diseñé un contenedor central de alto contraste con esquinas suavizadas para el balance general. Mi objetivo fue asegurar que el usuario pueda visualizar su capital total e iniciar operaciones frecuentes (como transferir o cobrar) con un solo toque y sin fricción cognitiva.</p>
+          </div>
+        </div>
+
+        <!-- ROW 2: Wallet Screen -->
+        <div class="anatomy-row reverse-row">
+          <div class="anatomy-visual right-visual">
+            <div class="zoom-card-wrapper">
+              <div class="zoom-card zoom-wallet">
+                <img src="screen-plataformas-pagatodo/ya-app/8-wallet/Tarjeta.png" alt="Zoom Wallet">
+              </div>
+            </div>
+            <div class="anatomy-pointer-line to-left">
+              <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M 100 10 L 20 10 L 0 10" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="4,4"/><circle cx="100" cy="10" r="3" fill="var(--color-primary)"/><circle cx="0" cy="10" r="4" fill="var(--color-primary)"/></svg>
+            </div>
+            <div class="phone-wrapper">
+              <div class="phone-frame">
+                <img src="screen-plataformas-pagatodo/ya-app/8-wallet/Tarjeta.png" alt="Pantalla Wallet Banco PagaTodo">
+              </div>
+            </div>
+          </div>
+          <div class="anatomy-text">
+            <div class="anatomy-badge">Seguridad & Wallet</div>
+            <h3>Tarjeta Digital Bloqueable & CVV Dinámico</h3>
+            <p>Concebí un módulo donde el usuario tiene control absoluto de su seguridad. Diseñé un interruptor minimalista para congelar temporalmente la tarjeta de manera instantánea, y una sección protegida para revelar el CVV dinámico únicamente tras autenticación biométrica.</p>
+          </div>
+        </div>
+
+        <!-- ROW 3: Monthly Top Up Rule -->
+        <div class="anatomy-row">
+          <div class="anatomy-visual left-visual">
+            <div class="phone-wrapper">
+              <div class="phone-frame">
+                <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/1-Regla-mensual.png" alt="Pantalla Regla Mensual">
+              </div>
+            </div>
+            <div class="anatomy-pointer-line to-right">
+              <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M 0 10 L 80 10 L 100 10" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="4,4"/><circle cx="0" cy="10" r="3" fill="var(--color-primary)"/><circle cx="100" cy="10" r="4" fill="var(--color-primary)"/></svg>
+            </div>
+            <div class="zoom-card-wrapper">
+              <div class="zoom-card zoom-rule">
+                <img src="screen-plataformas-pagatodo/ya-app/15-relleno-saldo/1-Regla-mensual.png" alt="Zoom Regla de Fondeo">
+              </div>
+            </div>
+          </div>
+          <div class="anatomy-text">
+            <div class="anatomy-badge">Automatización</div>
+            <h3>Reglas de Fondeo Programado</h3>
+            <p>Diseñé un flujo visual para configurar reglas automáticas de recarga de saldo. Simplifiqué un proceso financiero complejo transformándolo en selectores limpios de montos, límites mensuales y fechas clave, permitiendo que el fondeo de la cuenta opere en piloto automático.</p>
           </div>
         </div>
       </div>
