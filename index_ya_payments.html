@@ -113,11 +113,22 @@
     }
 
     /* FIXED SITIO WEB BUTTON */
-    .sitio-web-btn {
+    .sitio-web-wrapper {
       position: fixed;
       top: 24px;
-      right: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 28px;
       z-index: 9999;
+      pointer-events: none;
+    }
+
+    .sitio-web-btn {
+      pointer-events: auto;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -133,7 +144,7 @@
       letter-spacing: 0.3px;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(0, 240, 255, 0);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -1841,10 +1852,12 @@
   <div class="behance-container">
 
     <!-- Fixed Sitio Web Button -->
-    <a href="https://yapayments.com/" target="_blank" rel="noopener noreferrer" class="sitio-web-btn" id="sitio-web-link">
-      <i class="ti ti-world"></i>
-      Sitio Web
-    </a>
+    <div class="sitio-web-wrapper">
+      <a href="https://yapayments.com/" target="_blank" rel="noopener noreferrer" class="sitio-web-btn" id="sitio-web-link">
+        <i class="ti ti-world"></i>
+        Sitio Web
+      </a>
+    </div>
 
     <header class="hero-strip">
       <div class="hero-card">
