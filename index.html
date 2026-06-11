@@ -186,12 +186,12 @@
       color: #ffffff;
       text-decoration: none;
       font-family: var(--font-body);
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.3px;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       transition: all 0.3s ease;
     }
 
@@ -203,6 +203,15 @@
     .sitio-web-btn-mobile:hover {
       background: var(--color-primary);
       border-color: var(--color-primary);
+    }
+
+    @media (max-width: 768px) {
+      .sitio-web-wrapper {
+        display: none;
+      }
+      .sitio-web-btn-mobile {
+        display: inline-flex;
+      }
     }
 
     /* BACKGROUND LAYOUT BLUEPRINT GRID */
@@ -1901,12 +1910,14 @@
 
     <header class="hero-strip">
       <div class="hero-card">
+
+        <!-- Mobile-only Sitio Web button — sits above UX/UI label -->
+        <a href="https://yapayments.com/" target="_blank" rel="noopener noreferrer" class="sitio-web-btn-mobile">
+          <i class="ti ti-world"></i>
+          Sitio Web
+        </a>
+
         <div class="hero-top-info" style="justify-content: center;">
-          <!-- Mobile-only Sitio Web button, shown above UX/UI label -->
-          <a href="https://yapayments.com/" target="_blank" rel="noopener noreferrer" class="sitio-web-btn-mobile">
-            <i class="ti ti-world"></i>
-            Sitio Web
-          </a>
           <div>UX/UI DESIGN &amp; BRAND</div>
         </div>
         
